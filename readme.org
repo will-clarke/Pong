@@ -1,0 +1,4 @@
+* Readme
+** TODO:
+*** Benchmark different intersection algorithms to find the fastest
+*** Actually understand how the maths works in the intersection algorithm: https://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect

@@ -10,6 +10,55 @@ enum Orientation {
     Colinear
 }
 
+
+
+//////////////////////////////////////////////////////////////
+//////// MAYBE A BETTER ALGORITHM?? BENCHMARK IT!!!
+//////////////////////////////////////////////////////////////
+
+pub fn intersects(line_1: &Line, line_2: &Line) -> Option<Point> {
+    let p = line_1.0;
+    let q = line_2.0;
+    // let r = line_1.0 - line_1.1;
+    // let s = line_2.0 - line_2.1;
+    let r = line_1.1 - line_1.0;
+    let s = line_2.1 - line_2.0;
+
+    // t & u are the scalar values to multiply by r & s
+    let t = (q - p) * s / (r * s);
+    let u = (q - p) * r / (r * s);
+
+    println!("r * s == {:?}",r * s );
+    println!("t == {}", t);
+    println!("u == {}", u);
+    if r * s == 0.0 && (p - q) * r == 0.0 {
+        // colinear => Can be more complicated...
+        // but let's just say it doesn't intersect
+        return None;
+    } else if r * s == 0.0 && (q - p) * r != 0.0 {
+        // paralell (and therefore non-intersecting)
+        return None;
+    } else if r * s != 0.0 && t >= 0.0 && t <= 1.0 &&
+        u >= 0.0 && u <= 1.0 {
+            // segment intersects at point
+            // p + tr == q + us
+            return Some(p + Point::new(r.x * t, r.y * t))
+        }
+
+    None
+}
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////
+
 pub fn check_intersection(line_1: &Line, line_2: &Line) -> bool {
     // Not needed.. but potentially faster than not having it.. maybe.. ¯\_(ツ)_/¯
     if !check_bounding_boxes_intersect(line_1, line_2) {
@@ -41,6 +90,7 @@ pub fn check_intersection(line_1: &Line, line_2: &Line) -> bool {
     false
 }
 
+#[inline]
 fn check_bounding_boxes_intersect(line_1: &Line, line_2: &Line) -> bool {
     let line_1_min_x = line_1.0.x.min(line_1.1.x);
     let line_1_min_y = line_1.0.y.min(line_1.1.y);
@@ -56,6 +106,7 @@ fn check_bounding_boxes_intersect(line_1: &Line, line_2: &Line) -> bool {
         line_1_max_y >= line_2_min_y
 }
 
+#[inline]
 fn orientation(p: &Point, q: &Point, r: &Point) -> Orientation {
     let orientation_value = (q.y - p.y) * (r.x - q.x) -
         (q.x - p.x) * (r.y - q.y);
@@ -68,6 +119,7 @@ fn orientation(p: &Point, q: &Point, r: &Point) -> Orientation {
     }
 }
 
+#[inline]
 fn on_segment(p: &Point, q: &Point, r: &Point) -> bool
 {
     if q.x <= p.x.max(r.x) &&
@@ -86,7 +138,7 @@ fn tmp_delete() {
 }
 
 #[test]
-fn test_intersection() {
+fn test_intersection_checking() {
     let original_line = Line(Point::new(0,0), Point::new(10,0));
     let above_line = Line(Point::new(0,1), Point::new(10,1));
     let colinear_line = Line(Point::new(8,0), Point::new(13,0));
@@ -96,7 +148,6 @@ fn test_intersection() {
     assert!(!check_intersection(&original_line, &above_line));
     assert!(!check_intersection(&original_line, &random_line));
     assert!(check_intersection(&original_line, &colinear_line));
-    assert!(check_intersection(&original_line, &vertical_line));
     assert!(check_intersection(&original_line, &vertical_line));
 
     let a = Line(Point::new(-8000,25000), Point::new(-5290.945,12198.925));
@@ -129,5 +180,21 @@ fn test_bounding_boxes() {
     assert!(!check_bounding_boxes_intersect(&original_line, &random_line));
     assert!(check_bounding_boxes_intersect(&original_line, &colinear_line));
     assert!(check_bounding_boxes_intersect(&original_line, &vertical_line));
-    assert!(check_bounding_boxes_intersect(&original_line, &vertical_line));
 }
+
+#[test]
+fn test_intersection() {
+    let original_line = Line(Point::new(0,0), Point::new(10,0));
+    let above_line = Line(Point::new(0,1), Point::new(10,1));
+    let colinear_line = Line(Point::new(8,0), Point::new(13,0));
+    let random_line = Line(Point::new(-1,-1), Point::new(-3,-3));
+    let vertical_line = Line(Point::new(1,-1), Point::new(1,3));
+
+    assert_eq!(intersects(&original_line, &above_line), None);
+    assert_eq!(intersects(&original_line, &random_line), None);
+    assert_eq!(intersects(&original_line, &colinear_line), None); // we're curently saying that colinear doesn't intersect
+    assert_eq!(intersects(&original_line, &vertical_line), Some(Point::new(1, 0)));
+    // TODO Add more test variations here...
+}
+
+// TODO: wrap all these tests into a module to reuse variables or something

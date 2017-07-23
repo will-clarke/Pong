@@ -1,0 +1,7 @@
+[package]
+name = "pong"
+version = "0.1.0"
+authors = ["William Clarke <wmmclarke@gmail.com>"]
+
+[dependencies]
+num = "*"

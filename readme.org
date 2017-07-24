@@ -1,4 +1,17 @@
 * Readme
-** TODO:
-*** Benchmark different intersection algorithms to find the fastest
-*** Actually understand how the maths works in the intersection algorithm: https://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect
+*** TODO:
+- [ ] Create angles / reflection code
+  - I think we'll have to do the cumborsome way of:
+    - Finding *nearest* intersection point
+    - Finding distance to intersection poing
+    - Finding angle to draw from intersection point
+    - Drawing from intersection point (and the searching for another intersecting line): back to the first step
+- [ ] benchmark different intersection algorithms to find the most efficient
+- [ ] ? Rename line to line segment & generally rename words about lines / segments / chords / rays / points / slopes etc...
+  - We need some way of differnetiating lines which are [(x,y), (x,y)] and lines which are y = 2x + 4 (<- slopes?)
+- [ ] Create a to_slope method for Points ?
+-
+*** Other things to think about
+- units - surely uints are better?
+- floats are presumably bad
+- how generic do we want to make this?

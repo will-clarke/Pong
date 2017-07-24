@@ -1,0 +1,1 @@
+struct Angle(f64);

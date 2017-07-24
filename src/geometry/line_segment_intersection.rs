@@ -1,4 +1,4 @@
-use geometry::line::Line;
+use geometry::line_segment::LineSegment;
 use geometry::point::Point;
 
 extern crate num;
@@ -16,7 +16,7 @@ enum Orientation {
 //////// MAYBE A BETTER ALGORITHM?? BENCHMARK IT!!!
 //////////////////////////////////////////////////////////////
 
-pub fn intersects(line_1: &Line, line_2: &Line) -> Option<Point> {
+pub fn intersects(line_1: &LineSegment, line_2: &LineSegment) -> Option<Point> {
     let p = line_1.0;
     let q = line_2.0;
     // let r = line_1.0 - line_1.1;
@@ -59,7 +59,7 @@ pub fn intersects(line_1: &Line, line_2: &Line) -> Option<Point> {
 
 ////////////////////////////////////////////////////////////////
 
-pub fn check_intersection(line_1: &Line, line_2: &Line) -> bool {
+pub fn check_intersection(line_1: &LineSegment, line_2: &LineSegment) -> bool {
     // Not needed.. but potentially faster than not having it.. maybe.. ¯\_(ツ)_/¯
     if !check_bounding_boxes_intersect(line_1, line_2) {
         return false;
@@ -91,7 +91,7 @@ pub fn check_intersection(line_1: &Line, line_2: &Line) -> bool {
 }
 
 #[inline]
-fn check_bounding_boxes_intersect(line_1: &Line, line_2: &Line) -> bool {
+fn check_bounding_boxes_intersect(line_1: &LineSegment, line_2: &LineSegment) -> bool {
     let line_1_min_x = line_1.0.x.min(line_1.1.x);
     let line_1_min_y = line_1.0.y.min(line_1.1.y);
     let line_1_max_x = line_1.0.x.max(line_1.1.x);
@@ -139,19 +139,19 @@ fn tmp_delete() {
 
 #[test]
 fn test_intersection_checking() {
-    let original_line = Line(Point::new(0,0), Point::new(10,0));
-    let above_line = Line(Point::new(0,1), Point::new(10,1));
-    let colinear_line = Line(Point::new(8,0), Point::new(13,0));
-    let vertical_line = Line(Point::new(-1,-1), Point::new(3,3));
-    let random_line = Line(Point::new(-1,-1), Point::new(-3,-3));
+    let original_line = LineSegment(Point::new(0,0), Point::new(10,0));
+    let above_line = LineSegment(Point::new(0,1), Point::new(10,1));
+    let colinear_line = LineSegment(Point::new(8,0), Point::new(13,0));
+    let vertical_line = LineSegment(Point::new(-1,-1), Point::new(3,3));
+    let random_line = LineSegment(Point::new(-1,-1), Point::new(-3,-3));
 
     assert!(!check_intersection(&original_line, &above_line));
     assert!(!check_intersection(&original_line, &random_line));
     assert!(check_intersection(&original_line, &colinear_line));
     assert!(check_intersection(&original_line, &vertical_line));
 
-    let a = Line(Point::new(-8000,25000), Point::new(-5290.945,12198.925));
-    let b = Line(Point::new(-7000,19000), Point::new(-5202.545,12041.925));
+    let a = LineSegment(Point::new(-8000,25000), Point::new(-5290.945,12198.925));
+    let b = LineSegment(Point::new(-7000,19000), Point::new(-5202.545,12041.925));
     assert!(check_intersection(&a, &b));
 }
 
@@ -170,11 +170,11 @@ fn orientation_test() {
 
 #[test]
 fn test_bounding_boxes() {
-    let original_line = Line(Point::new(0,0), Point::new(10,0));
-    let above_line = Line(Point::new(0,1), Point::new(10,1));
-    let colinear_line = Line(Point::new(8,0), Point::new(13,0));
-    let vertical_line = Line(Point::new(-1,-1), Point::new(3,3));
-    let random_line = Line(Point::new(-1,-1), Point::new(-3,-3));
+    let original_line = LineSegment(Point::new(0,0), Point::new(10,0));
+    let above_line = LineSegment(Point::new(0,1), Point::new(10,1));
+    let colinear_line = LineSegment(Point::new(8,0), Point::new(13,0));
+    let vertical_line = LineSegment(Point::new(-1,-1), Point::new(3,3));
+    let random_line = LineSegment(Point::new(-1,-1), Point::new(-3,-3));
 
     assert!(!check_bounding_boxes_intersect(&original_line, &above_line));
     assert!(!check_bounding_boxes_intersect(&original_line, &random_line));
@@ -184,11 +184,11 @@ fn test_bounding_boxes() {
 
 #[test]
 fn test_intersection() {
-    let original_line = Line(Point::new(0,0), Point::new(10,0));
-    let above_line = Line(Point::new(0,1), Point::new(10,1));
-    let colinear_line = Line(Point::new(8,0), Point::new(13,0));
-    let random_line = Line(Point::new(-1,-1), Point::new(-3,-3));
-    let vertical_line = Line(Point::new(1,-1), Point::new(1,3));
+    let original_line = LineSegment(Point::new(0,0), Point::new(10,0));
+    let above_line = LineSegment(Point::new(0,1), Point::new(10,1));
+    let colinear_line = LineSegment(Point::new(8,0), Point::new(13,0));
+    let random_line = LineSegment(Point::new(-1,-1), Point::new(-3,-3));
+    let vertical_line = LineSegment(Point::new(1,-1), Point::new(1,3));
 
     assert_eq!(intersects(&original_line, &above_line), None);
     assert_eq!(intersects(&original_line, &random_line), None);

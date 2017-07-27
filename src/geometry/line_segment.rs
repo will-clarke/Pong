@@ -1,5 +1,6 @@
 use geometry::vector::Vector;
 use geometry::slope::Slope;
+use geometry::angle::Angle;
 
 pub struct LineSegment(pub Vector, pub Vector);
 
@@ -11,6 +12,17 @@ impl LineSegment {
         Slope {
             x_multiplier: x_multiplier,
             y_intercept: y_intercept,
+        }
+    }
+
+    pub fn to_angle(&self) -> Angle {
+        self.relative_delta().to_angle()
+    }
+
+    fn relative_delta(&self) -> Vector {
+        Vector {
+            x: self.0.x - self.1.x,
+            y: self.0.y - self.1.y,
         }
     }
 }

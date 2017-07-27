@@ -1,6 +1,6 @@
 * Readme
 *** TODO:
-- [ ] Create angles / reflection code
+- [X] Create angles / reflection code
   - I think we'll have to do the cumborsome way of:
     - Finding *nearest* intersection point
     - Finding distance to intersection poing

@@ -1,7 +1,7 @@
-use geometry::point::Point;
+use geometry::vector::Vector;
 use geometry::slope::Slope;
 
-pub struct LineSegment(pub Point, pub Point);
+pub struct LineSegment(pub Vector, pub Vector);
 
 impl LineSegment {
     fn to_slope(&self) -> Slope {
@@ -17,8 +17,8 @@ impl LineSegment {
 
 #[test]
 fn test_initalize() {
-    let p1 = Point::new(1, 2);
-    let p2 = Point::new(3, 4);
+    let p1 = Vector::new(1, 2);
+    let p2 = Vector::new(3, 4);
     let line = LineSegment(p1, p2);
     assert_eq!(line.0.x, 1.0);
     assert_eq!(line.0.y, 2.0);
@@ -28,8 +28,8 @@ fn test_initalize() {
 
 #[test]
 fn test_to_slope() {
-    let p1 = Point::new(-1, 5);
-    let p2 = Point::new(3, 7);
+    let p1 = Vector::new(-1, 5);
+    let p2 = Vector::new(3, 7);
     let line = LineSegment(p1, p2);
     let expected_slope = Slope {
         x_multiplier: 0.5,

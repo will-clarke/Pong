@@ -1,5 +1,5 @@
 use geometry::line_segment::LineSegment;
-use geometry::point::Point;
+use geometry::vector::Vector;
 
 extern crate num;
 
@@ -16,7 +16,7 @@ enum Orientation {
 //////// MAYBE A BETTER ALGORITHM?? BENCHMARK IT!!!
 //////////////////////////////////////////////////////////////
 
-pub fn intersects(line_1: &LineSegment, line_2: &LineSegment) -> Option<Point> {
+pub fn intersects(line_1: &LineSegment, line_2: &LineSegment) -> Option<Vector> {
     let p = line_1.0;
     let q = line_2.0;
     // let r = line_1.0 - line_1.1;
@@ -42,7 +42,7 @@ pub fn intersects(line_1: &LineSegment, line_2: &LineSegment) -> Option<Point> {
         u >= 0.0 && u <= 1.0 {
             // segment intersects at point
             // p + tr == q + us
-            return Some(p + Point::new(r.x * t, r.y * t))
+            return Some(p + Vector::new(r.x * t, r.y * t))
         }
 
     None
@@ -107,7 +107,7 @@ fn check_bounding_boxes_intersect(line_1: &LineSegment, line_2: &LineSegment) ->
 }
 
 #[inline]
-fn orientation(p: &Point, q: &Point, r: &Point) -> Orientation {
+fn orientation(p: &Vector, q: &Vector, r: &Vector) -> Orientation {
     let orientation_value = (q.y - p.y) * (r.x - q.x) -
         (q.x - p.x) * (r.y - q.y);
     if orientation_value > 0.0 {
@@ -120,7 +120,7 @@ fn orientation(p: &Point, q: &Point, r: &Point) -> Orientation {
 }
 
 #[inline]
-fn on_segment(p: &Point, q: &Point, r: &Point) -> bool
+fn on_segment(p: &Vector, q: &Vector, r: &Vector) -> bool
 {
     if q.x <= p.x.max(r.x) &&
         q.x >= p.x.min(r.x) &&
@@ -139,42 +139,42 @@ fn tmp_delete() {
 
 #[test]
 fn test_intersection_checking() {
-    let original_line = LineSegment(Point::new(0,0), Point::new(10,0));
-    let above_line = LineSegment(Point::new(0,1), Point::new(10,1));
-    let colinear_line = LineSegment(Point::new(8,0), Point::new(13,0));
-    let vertical_line = LineSegment(Point::new(-1,-1), Point::new(3,3));
-    let random_line = LineSegment(Point::new(-1,-1), Point::new(-3,-3));
+    let original_line = LineSegment(Vector::new(0,0), Vector::new(10,0));
+    let above_line = LineSegment(Vector::new(0,1), Vector::new(10,1));
+    let colinear_line = LineSegment(Vector::new(8,0), Vector::new(13,0));
+    let vertical_line = LineSegment(Vector::new(-1,-1), Vector::new(3,3));
+    let random_line = LineSegment(Vector::new(-1,-1), Vector::new(-3,-3));
 
     assert!(!check_intersection(&original_line, &above_line));
     assert!(!check_intersection(&original_line, &random_line));
     assert!(check_intersection(&original_line, &colinear_line));
     assert!(check_intersection(&original_line, &vertical_line));
 
-    let a = LineSegment(Point::new(-8000,25000), Point::new(-5290.945,12198.925));
-    let b = LineSegment(Point::new(-7000,19000), Point::new(-5202.545,12041.925));
+    let a = LineSegment(Vector::new(-8000,25000), Vector::new(-5290.945,12198.925));
+    let b = LineSegment(Vector::new(-7000,19000), Vector::new(-5202.545,12041.925));
     assert!(check_intersection(&a, &b));
 }
 
 #[test]
 fn orientation_test() {
-    let p = Point::new(1, 1);
-    let q = Point::new(5, 5);
-    let r = Point::new(3, -2); // to the 'right hand' side of the other points
+    let p = Vector::new(1, 1);
+    let q = Vector::new(5, 5);
+    let r = Vector::new(3, -2); // to the 'right hand' side of the other points
     let orientation_r = orientation(&p, &q, &r);
     assert_eq!(orientation_r, Orientation::Clockwise);
 
-    let new_r = Point::new(3, 10); // to the 'left hand' side of the other points
+    let new_r = Vector::new(3, 10); // to the 'left hand' side of the other points
     let orientation_new_r = orientation(&r, &q, &new_r);
     assert_eq!(orientation_new_r, Orientation::Anticlockwise);
 }
 
 #[test]
 fn test_bounding_boxes() {
-    let original_line = LineSegment(Point::new(0,0), Point::new(10,0));
-    let above_line = LineSegment(Point::new(0,1), Point::new(10,1));
-    let colinear_line = LineSegment(Point::new(8,0), Point::new(13,0));
-    let vertical_line = LineSegment(Point::new(-1,-1), Point::new(3,3));
-    let random_line = LineSegment(Point::new(-1,-1), Point::new(-3,-3));
+    let original_line = LineSegment(Vector::new(0,0), Vector::new(10,0));
+    let above_line = LineSegment(Vector::new(0,1), Vector::new(10,1));
+    let colinear_line = LineSegment(Vector::new(8,0), Vector::new(13,0));
+    let vertical_line = LineSegment(Vector::new(-1,-1), Vector::new(3,3));
+    let random_line = LineSegment(Vector::new(-1,-1), Vector::new(-3,-3));
 
     assert!(!check_bounding_boxes_intersect(&original_line, &above_line));
     assert!(!check_bounding_boxes_intersect(&original_line, &random_line));
@@ -184,16 +184,16 @@ fn test_bounding_boxes() {
 
 #[test]
 fn test_intersection() {
-    let original_line = LineSegment(Point::new(0,0), Point::new(10,0));
-    let above_line = LineSegment(Point::new(0,1), Point::new(10,1));
-    let colinear_line = LineSegment(Point::new(8,0), Point::new(13,0));
-    let random_line = LineSegment(Point::new(-1,-1), Point::new(-3,-3));
-    let vertical_line = LineSegment(Point::new(1,-1), Point::new(1,3));
+    let original_line = LineSegment(Vector::new(0,0), Vector::new(10,0));
+    let above_line = LineSegment(Vector::new(0,1), Vector::new(10,1));
+    let colinear_line = LineSegment(Vector::new(8,0), Vector::new(13,0));
+    let random_line = LineSegment(Vector::new(-1,-1), Vector::new(-3,-3));
+    let vertical_line = LineSegment(Vector::new(1,-1), Vector::new(1,3));
 
     assert_eq!(intersects(&original_line, &above_line), None);
     assert_eq!(intersects(&original_line, &random_line), None);
     assert_eq!(intersects(&original_line, &colinear_line), None); // we're curently saying that colinear doesn't intersect
-    assert_eq!(intersects(&original_line, &vertical_line), Some(Point::new(1, 0)));
+    assert_eq!(intersects(&original_line, &vertical_line), Some(Vector::new(1, 0)));
     // TODO Add more test variations here...
 }
 

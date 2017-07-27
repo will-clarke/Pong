@@ -9,7 +9,7 @@
 - [ ] benchmark different intersection algorithms to find the most efficient
 - [ ] ? Rename line to line segment & generally rename words about lines / segments / chords / rays / points / slopes etc...
   - We need some way of differnetiating lines which are [(x,y), (x,y)] and lines which are y = 2x + 4 (<- slopes?)
-- [ ] Create a to_slope method for Points ?
+- [X] Create a to_slope method for Vectors ?
 -
 *** Other things to think about
 - units - surely uints are better?

@@ -16,7 +16,6 @@ impl Angle {
     }
 }
 
-
 #[test]
 fn test_reflect() {
     let segment = LineSegment(Vector::new(0,0), Vector::new(0, 10));

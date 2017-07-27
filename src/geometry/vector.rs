@@ -51,17 +51,6 @@ impl ops::Mul for Vector {
     }
 }
 
-// impl ops::Add for Vector {
-//     type output = Vector;
-//     fn add(self, other: Vector) -> Vector {
-//         Vector {
-//             x: self.x + other.x,
-//             y: self.y + other.y,
-//         }
-//     }
-// }
-
-
 impl ops::Add for Vector {
     type Output = Vector;
 
@@ -72,8 +61,6 @@ impl ops::Add for Vector {
         }
     }
 }
-
-// std::cmp::PartialEq` might be missing for `std::option::Option<geometry::vector::Vector>`
 
 #[test]
 fn test_multiplication() {

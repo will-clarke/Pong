@@ -16,6 +16,7 @@ enum Orientation {
 //////// MAYBE A BETTER ALGORITHM?? BENCHMARK IT!!!
 //////////////////////////////////////////////////////////////
 
+// TODO: make this an implementation / method of a LineSegment? Rather than a function..
 pub fn intersects(line_1: &LineSegment, line_2: &LineSegment) -> Option<Vector> {
     let p = line_1.0;
     let q = line_2.0;
@@ -47,13 +48,6 @@ pub fn intersects(line_1: &LineSegment, line_2: &LineSegment) -> Option<Vector> 
 
     None
 }
-
-
-
-
-
-
-
 
 
 

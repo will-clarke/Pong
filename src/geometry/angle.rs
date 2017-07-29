@@ -22,11 +22,26 @@ fn test_reflect() {
     let incoming_right_angle = Angle(0.5);
     let outgoing_angle = incoming_right_angle.reflect(&segment);
     assert_eq!(outgoing_angle, Angle(0.5));
+
     let incoming_sharp_angle = Angle(0.74);
     let outgoing_angle = incoming_sharp_angle.reflect(&segment);
     assert_eq!(outgoing_angle, Angle(0.26));
+
     let incoming_sharp_angle = Angle(0.76);
     let outgoing_angle = incoming_sharp_angle.reflect(&segment);
-    assert_eq!(outgoing_angle, Angle(0.24));
-    // TODO: Write more tests here...
+    assert_kind_of_equal(outgoing_angle, Angle(0.24));
+
+    let segment = LineSegment(Vector::new(0,0), Vector::new(10, 10));
+    let incoming_angle = Angle(0.0);
+    let outgoing_angle = incoming_angle.reflect(&segment);
+    assert_eq!(outgoing_angle, Angle(0.25));
+
+    let incoming_angle = Angle(0.5);
+    let outgoing_angle = incoming_angle.reflect(&segment);
+    assert_eq!(outgoing_angle, Angle(0.75));
+}
+
+// TODO: create test module here for this
+fn assert_kind_of_equal(a: Angle, b: Angle) {
+    assert!((a.0 - b.0).abs() < 0.001);
 }

@@ -1,8 +1,10 @@
 use geometry::vector::Vector;
 use geometry::slope::Slope;
 use geometry::angle::Angle;
+use config;
 
 pub struct LineSegment(pub Vector, pub Vector);
+pub struct LineSegments(Vec<LineSegment>);
 
 impl LineSegment {
     fn to_slope(&self) -> Slope {
@@ -24,6 +26,16 @@ impl LineSegment {
             x: self.0.x - self.1.x,
             y: self.0.y - self.1.y,
         }
+    }
+}
+
+impl LineSegments {
+    pub fn new(config: &config::Config) -> LineSegments {
+        let top = LineSegment(Vector { x: 0.0, y: 0.0 },
+                              Vector { x: config.window_width, y: 0.0});
+        let bottom = LineSegment(Vector { x: 0.0, y: config.window_height},
+                                 Vector { x: config.window_width, y: config.window_height });
+        LineSegments(vec!(top, bottom))
     }
 }
 

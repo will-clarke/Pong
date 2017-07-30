@@ -2,17 +2,20 @@ use config::Config;
 use board::Board;
 use score::Score;
 use ui;
+use io::Input;
+use io::Drawable;
 
 pub struct Game {
     config: Config,
     board: Board,
     score: Score,
+    input: Input,
 }
 
 impl Game {
-    pub fn tick(&self) {
-        // io::get_input();
-
+    pub fn tick(&mut self) {
+        self.input.update();
+        self.board.draw();
     }
 
     pub fn new() -> Game {
@@ -21,7 +24,8 @@ impl Game {
         Game {
             config: config,
             board: Board::new(&config),
-            score: Score::new()
+            score: Score::new(),
+            input: Input::new(),
         }
     }
 }

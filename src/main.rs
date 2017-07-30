@@ -22,8 +22,8 @@ use game::Game;
 
 fn main() {
     println!("Hello, world!");
-    let game = Game::new();
+    let mut game = Game::new();
     for i in 1..10 {
-        // game.tick();
+        game.tick();
     }
 }

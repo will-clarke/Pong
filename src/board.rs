@@ -4,12 +4,11 @@ use paddle::Paddle;
 use config::Config;
 
 pub struct Board {
-    ball: Ball,
-    reflective_lines: LineSegments,
-    l_paddle: Paddle,
-    r_paddle: Paddle,
+    pub ball: Ball,
+    pub reflective_lines: LineSegments,
+    pub l_paddle: Paddle,
+    pub r_paddle: Paddle,
 }
-
 
 impl Board {
     pub fn new(config: &Config) -> Board {
@@ -20,4 +19,5 @@ impl Board {
             r_paddle: Paddle::new(config),
         }
     }
+
 }

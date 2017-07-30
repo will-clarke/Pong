@@ -4,6 +4,8 @@ use ball::Ball;
 use paddle::Paddle;
 use ncurses::*;
 
+use std::{thread, time};
+
 enum Direction {
     Up,
     Down,
@@ -16,6 +18,7 @@ pub struct Input {
     // r_player: Direction,
     l_player: Option<Direction>,
     quit: bool,
+    paused: bool,
 }
 
 pub trait Drawable {
@@ -28,19 +31,30 @@ impl Input {
         Input {
             l_player: None,
             quit: false,
+            paused: false,
         }
     }
     pub fn update(&mut self) {
-        mvaddch(3, 3, 'x' as u32);
         let ch = getch();
         match ch
         {
+            // 97 => { addch('$' as u32); }, // a
             113 => { self.quit = true },
-            KEY_LEFT  => { self.l_player = Some(Direction::Left); },
-            KEY_RIGHT => { self.l_player = Some(Direction::Right); },
-            KEY_UP    => { self.l_player = Some(Direction::Up); },
-            KEY_DOWN  => { self.l_player = Some(Direction::Down); },
-            _ => { }
+            112      => { //p for pause
+                self.paused = !self.paused;
+                if self.paused == true {
+                    while getch() != 112 {
+                        self.paused = false;
+                    }
+                }
+            },
+            KEY_LEFT      => { self.l_player = Some(Direction::Left); },
+            KEY_RIGHT     => { self.l_player = Some(Direction::Right); },
+            KEY_UP        => { self.l_player = Some(Direction::Up); },
+            KEY_DOWN      => { self.l_player = Some(Direction::Down); },
+            _ => {
+                addch(ch as u32);
+            }
         }
 
     }
@@ -48,12 +62,13 @@ impl Input {
 
 impl Drawable for Board {
     fn draw(&self) {
-        clear();
-        self.reflective_lines.draw();
-        self.r_paddle.draw();
-        self.l_paddle.draw();
+        // clear();
+        // self.reflective_lines.draw();
+        // self.r_paddle.draw();
+        // self.l_paddle.draw();
         self.ball.draw();
-        refresh();
+        addch('p' as u32);
+        // refresh();
     }
 }
 
@@ -64,15 +79,19 @@ impl Drawable for LineSegments {
 impl Drawable for Paddle {
     fn draw(&self) {
         for i in 0..self.length as i32{
-            // mvaddch(self.)
+            mvaddch(self.y as i32,
+                    0,
+                    '█' as u32);
         }
     }
 }
 
 impl Drawable for Ball {
     fn draw(&self) {
+        // println!("{} {}", self.current_position.x, self.current_position.y);
         mvaddch(self.current_position.y as i32,
                 self.current_position.x as i32,
                 'o' as u32);
+        // refresh();
     }
 }

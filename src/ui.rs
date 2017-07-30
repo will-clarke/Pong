@@ -25,8 +25,8 @@ pub fn end_ui() {
 }
 
 fn full_screen_message(max_y: i32, max_x: i32, message: &str) {
-    clear();
-    refresh();
+    // clear();
+    // refresh();
     let message_length = message.chars().count() as i32;
     let message_border_y = 3;
     let message_border_x = 5;

@@ -1,7 +1,4 @@
-[[https://travis-ci.org/will-clarke/pong][[https://travis-ci.org/will-clarke/pong.svg?branch=master]]]
-[[https://travis-ci.org/will-clarke/pong][https://travis-ci.org/will-clarke/pong.svg?branch=master]]
-
-* Readme
+* Readme [[https://travis-ci.org/will-clarke/pong][https://travis-ci.org/will-clarke/pong.svg?branch=master]]
 *** TODO:
 - [X] Create angles / reflection code
   - I think we'll have to do the cumborsome way of:

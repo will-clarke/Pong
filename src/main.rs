@@ -16,6 +16,7 @@ mod score;
 mod config;
 mod game;
 mod ui;
+mod io;
 
 use game::Game;
 

@@ -1,20 +1,12 @@
 use ncurses::*;
 use std::{thread, time};
 
-
-// let ten_millis = time::Duration::from_millis(10);
-// let now = time::Instant::now();
-
-// thread::sleep(ten_millis);
-
-
-
 lazy_static! {
     static ref MAX_Y: i32 = max_y();
     static ref MAX_X: i32 = max_x();
 }
 
-pub fn init_ui() {
+pub fn init_ui() -> (i32, i32) {
     initscr();
     noecho();
     timeout(0);
@@ -24,6 +16,7 @@ pub fn init_ui() {
     // full_screen_message(*MAX_Y, *MAX_X, "HEY GUYS!!");
     // thread::sleep(time::Duration::from_millis(1000));
     // getch();
+    max_y_and_max_x()
 }
 
 pub fn end_ui() {

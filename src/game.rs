@@ -24,8 +24,8 @@ impl Game {
     }
 
     pub fn new() -> Game {
-        let config = Config::new();
-        ui::init_ui();
+        let (max_x, max_y) = ui::init_ui();
+        let config = Config::new(max_x, max_y);
         Game {
             config: config,
             board: Board::new(&config),

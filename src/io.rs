@@ -48,6 +48,7 @@ impl Input {
 
 impl Drawable for Board {
     fn draw(&self) {
+        clear();
         self.reflective_lines.draw();
         self.r_paddle.draw();
         self.l_paddle.draw();
@@ -61,11 +62,17 @@ impl Drawable for LineSegments {
 }
 
 impl Drawable for Paddle {
-    fn draw(&self) {}
+    fn draw(&self) {
+        for i in 0..self.length as i32{
+            // mvaddch(self.)
+        }
+    }
 }
 
 impl Drawable for Ball {
     fn draw(&self) {
-        mvaddch(self.current_position.y, self.current_position.x, 'o' as u32)
+        mvaddch(self.current_position.y as i32,
+                self.current_position.x as i32,
+                'o' as u32);
     }
 }

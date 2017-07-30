@@ -66,6 +66,6 @@ impl Drawable for Paddle {
 
 impl Drawable for Ball {
     fn draw(&self) {
-        mvaddch(10, 10, 'X' as u32);
+        mvaddch(self.current_position.y, self.current_position.x, 'o' as u32)
     }
 }

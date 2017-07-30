@@ -3,9 +3,9 @@ use geometry::angle::Angle;
 use config;
 
 pub struct Ball {
-    current_position: Vector,
-    direction: Angle,
-    distance: f64,
+    pub current_position: Vector,
+    pub direction: Angle,
+    pub distance: f64,
 }
 
 
@@ -17,7 +17,7 @@ impl Ball {
         Ball {
             current_position: starting_pos,
             direction: Angle(0.25), // TODO: make this random!!
-            distance: 0.3, // no idea
+            distance: 1.0,
         }
     }
 }

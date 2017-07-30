@@ -16,8 +16,9 @@ pub struct Game {
 
 impl Game {
     pub fn tick(&mut self) {
-        self.input.update();
         self.board.draw();
+        self.input.update();
+        self.board.update();
 
         thread::sleep(time::Duration::from_millis(100));
     }

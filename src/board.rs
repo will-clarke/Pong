@@ -20,4 +20,9 @@ impl Board {
         }
     }
 
+    pub fn update(&mut self) {
+        self.ball.current_position.x += self.ball.distance;
+        self.ball.current_position.y += self.ball.distance;
+    }
+
 }

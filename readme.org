@@ -1,5 +1,5 @@
-[[https://travis-ci.org/will-clarke/pong.svg?branch=master]]
-
+[[https://travis-ci.org/will-clarke/pong][[https://travis-ci.org/will-clarke/pong.svg?branch=master]]]
+[[https://travis-ci.org/will-clarke/pong][https://travis-ci.org/will-clarke/pong.svg?branch=master]]
 
 * Readme
 *** TODO:

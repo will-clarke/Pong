@@ -5,6 +5,8 @@ use ui;
 use io::Input;
 use io::Drawable;
 
+use std::{thread, time};
+
 pub struct Game {
     config: Config,
     board: Board,
@@ -16,6 +18,8 @@ impl Game {
     pub fn tick(&mut self) {
         self.input.update();
         self.board.draw();
+
+        thread::sleep(time::Duration::from_millis(100));
     }
 
     pub fn new() -> Game {

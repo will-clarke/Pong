@@ -31,7 +31,8 @@ impl Input {
         }
     }
     pub fn update(&mut self) {
-        let mut ch = getch();
+        mvaddch(3, 3, 'x' as u32);
+        let ch = getch();
         match ch
         {
             113 => { self.quit = true },
@@ -51,6 +52,7 @@ impl Drawable for Board {
         self.r_paddle.draw();
         self.l_paddle.draw();
         self.ball.draw();
+        refresh();
     }
 }
 
@@ -63,5 +65,7 @@ impl Drawable for Paddle {
 }
 
 impl Drawable for Ball {
-    fn draw(&self) {}
+    fn draw(&self) {
+        mvaddch(10, 10, 'X' as u32);
+    }
 }

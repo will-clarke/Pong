@@ -1,4 +1,13 @@
 use ncurses::*;
+use std::{thread, time};
+
+
+// let ten_millis = time::Duration::from_millis(10);
+// let now = time::Instant::now();
+
+// thread::sleep(ten_millis);
+
+
 
 lazy_static! {
     static ref MAX_Y: i32 = max_y();
@@ -7,19 +16,19 @@ lazy_static! {
 
 pub fn init_ui() {
     initscr();
-    raw();
     noecho();
+    timeout(0);
+    raw();
     curs_set(CURSOR_VISIBILITY::CURSOR_INVISIBLE);
-    full_screen_message(*MAX_Y, *MAX_X, "HEY GUYS!!");
+    // TODO: get wrefresh() working with refresh():
+    // full_screen_message(*MAX_Y, *MAX_X, "HEY GUYS!!");
+    // thread::sleep(time::Duration::from_millis(1000));
+    // getch();
 }
 
 pub fn end_ui() {
-    full_screen_message(*MAX_Y, *MAX_X, "GAME OVER LOSER!");
-    getch();
+    // full_screen_message(*MAX_Y, *MAX_X, "GAME OVER LOSER!");
     endwin();
-}
-
-pub fn welcome() {
 }
 
 fn full_screen_message(max_y: i32, max_x: i32, message: &str) {
@@ -41,6 +50,7 @@ fn full_screen_message(max_y: i32, max_x: i32, message: &str) {
     mvprintw( window_starting_y + message_border_y,
               window_starting_x + message_border_x, message);
     wrefresh(welcome_window);
+    thread::sleep(time::Duration::from_millis(1000));
 }
 
 fn max_y_and_max_x() -> (i32, i32) {

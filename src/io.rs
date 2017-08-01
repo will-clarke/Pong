@@ -76,15 +76,21 @@ impl Drawable for Board {
 }
 
 impl Drawable for LineSegments {
-    fn draw(&self) {}
+
+    fn draw(&self) {
+        // self.to_intermediate_vectors()
+        // do something like this ^
+    }
+
 }
 
 impl Drawable for Paddle {
     fn draw(&self) {
-        for i in 0..self.length as i32{
-            mvaddch(self.y as i32,
+        for i in 0..self.length as i32 {
+            mvaddch((self.y as i32) + i,
                     0,
-                    '█' as u32);
+                    'I' as u32);
+                    // '█' as u32);
         }
     }
 }

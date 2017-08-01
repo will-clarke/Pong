@@ -4,7 +4,7 @@ use geometry::angle::Angle;
 use config;
 
 pub struct LineSegment(pub Vector, pub Vector);
-pub struct LineSegments(Vec<LineSegment>);
+pub struct LineSegments(pub Vec<LineSegment>);
 
 impl LineSegment {
     fn to_slope(&self) -> Slope {
@@ -36,6 +36,26 @@ impl LineSegments {
         let bottom = LineSegment(Vector { x: 0.0, y: config.window_height},
                                  Vector { x: config.window_width, y: config.window_height });
         LineSegments(vec!(top, bottom))
+    }
+
+    pub fn to_intermediate_vectors(&self) -> Vec<Vector> {
+        let mut iterator = self.0.iter().peekable();
+        let mut from = iterator.next();
+        let mut to = iterator.next();
+        let mut output = vec!();
+        loop {
+            // draw_line_between(from, to);
+
+            // todo: implement me here!
+
+
+
+            to = from;
+            from =  iterator.next();
+            if from.is_none() {
+                break;
+            }
+        }
     }
 }
 

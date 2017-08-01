@@ -26,6 +26,7 @@ impl Game {
             process::exit(0);
         }
 
+        // todo.. calculate dt
         thread::sleep(time::Duration::from_millis(100));
     }
 

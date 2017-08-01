@@ -4,9 +4,9 @@ use ball::Ball;
 use paddle::Paddle;
 use ncurses::*;
 
-use std::{thread, time};
+use std::{thread, time, process};
 
-enum Direction {
+pub enum Direction {
     Up,
     Down,
     Left,
@@ -16,9 +16,9 @@ enum Direction {
 pub struct Input {
     // TODO: Add r_player:
     // r_player: Direction,
-    l_player: Option<Direction>,
-    quit: bool,
-    paused: bool,
+    pub l_player: Option<Direction>,
+    pub quit: bool,
+    pub paused: bool,
 }
 
 pub trait Drawable {
@@ -36,22 +36,26 @@ impl Input {
     }
     pub fn update(&mut self) {
         let ch = getch();
+        if self.paused == true {
+            loop {
+                match getch() {
+                    112 => { self.paused = false; break; },
+                    113 => { endwin(); process::exit(0); },
+                    _   => {}
+                }
+            }
+        }
         match ch
         {
             // 97 => { addch('$' as u32); }, // a
             113 => { self.quit = true },
-            112      => { //p for pause
-                self.paused = !self.paused;
-                if self.paused == true {
-                    while getch() != 112 {
-                        self.paused = false;
-                    }
-                }
+            112 => { //p for pause
+                self.paused = true;
             },
-            KEY_LEFT      => { self.l_player = Some(Direction::Left); },
-            KEY_RIGHT     => { self.l_player = Some(Direction::Right); },
-            KEY_UP        => { self.l_player = Some(Direction::Up); },
-            KEY_DOWN      => { self.l_player = Some(Direction::Down); },
+            KEY_LEFT => { self.paused = true; printw("OMG"); ; self.l_player = Some(Direction::Left); },
+            KEY_RIGHT => { self.l_player = Some(Direction::Right); },
+            KEY_UP => { self.l_player = Some(Direction::Up); },
+            KEY_DOWN => { self.l_player = Some(Direction::Down); },
             _ => {
                 addch(ch as u32);
             }
@@ -62,13 +66,12 @@ impl Input {
 
 impl Drawable for Board {
     fn draw(&self) {
-        // clear();
-        // self.reflective_lines.draw();
-        // self.r_paddle.draw();
-        // self.l_paddle.draw();
+        clear();
+        self.reflective_lines.draw();
+        self.r_paddle.draw();
+        self.l_paddle.draw();
         self.ball.draw();
-        addch('p' as u32);
-        // refresh();
+        refresh();
     }
 }
 
@@ -88,10 +91,8 @@ impl Drawable for Paddle {
 
 impl Drawable for Ball {
     fn draw(&self) {
-        // println!("{} {}", self.current_position.x, self.current_position.y);
         mvaddch(self.current_position.y as i32,
                 self.current_position.x as i32,
                 'o' as u32);
-        // refresh();
     }
 }

@@ -23,7 +23,7 @@ use game::Game;
 fn main() {
     println!("Hello, world!");
     let mut game = Game::new();
-    for i in 1..10 {
+    for i in 1..100 {
         game.tick();
     }
 }

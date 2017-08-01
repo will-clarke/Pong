@@ -4,8 +4,9 @@ use score::Score;
 use ui;
 use io::Input;
 use io::Drawable;
+use ncurses::endwin;
 
-use std::{thread, time};
+use std::{thread, time, process};
 
 pub struct Game {
     config: Config,
@@ -16,16 +17,21 @@ pub struct Game {
 
 impl Game {
     pub fn tick(&mut self) {
-        self.board.draw();
         self.input.update();
+        self.board.draw();
         self.board.update();
+
+        if self.input.quit == true {
+            endwin();
+            process::exit(0);
+        }
 
         thread::sleep(time::Duration::from_millis(100));
     }
 
     pub fn new() -> Game {
         let (max_x, max_y) = ui::init_ui();
-        let config = Config::new(max_x, max_y);
+        let config = Config::new(max_y, max_x);
         Game {
             config: config,
             board: Board::new(&config),

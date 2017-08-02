@@ -1,8 +1,14 @@
 use board::Board;
-use geometry::line_segment::LineSegments;
+use geometry::line_segment::{LineSegment,LineSegments};
 use ball::Ball;
 use paddle::Paddle;
 use ncurses::*;
+
+
+
+use geometry::vector::Vector;
+
+// use io::Drawable;
 
 use std::{thread, time, process};
 
@@ -67,6 +73,14 @@ impl Input {
 impl Drawable for Board {
     fn draw(&self) {
         clear();
+
+        let one = LineSegment(Vector::new(5, 5), Vector::new(5, 30));
+        let two = LineSegment(Vector::new(5, 30), Vector::new(40, 30));
+        let three = LineSegment(Vector::new(40, 30), Vector::new(5, 5));
+        let segments = LineSegments(vec!(one, two, three));
+        segments.draw();
+        /// todo tmp:: remove this...
+
         self.reflective_lines.draw();
         self.r_paddle.draw();
         self.l_paddle.draw();
@@ -76,10 +90,12 @@ impl Drawable for Board {
 }
 
 impl Drawable for LineSegments {
-
     fn draw(&self) {
-        // self.to_intermediate_vectors()
-        // do something like this ^
+        for vec in self.to_intermediate_vectors() {
+            mvaddch(vec.y as i32,
+                    vec.x as i32,
+                    'X' as u32);
+        }
     }
 
 }
@@ -90,7 +106,7 @@ impl Drawable for Paddle {
             mvaddch((self.y as i32) + i,
                     0,
                     'I' as u32);
-                    // '█' as u32);
+            // '█' as u32);
         }
     }
 }

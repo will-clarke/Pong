@@ -2,6 +2,8 @@ use geometry::vector::Vector;
 use geometry::slope::Slope;
 use geometry::angle::Angle;
 use config;
+use std::mem;
+use std::iter::FromIterator;
 
 pub struct LineSegment(pub Vector, pub Vector);
 pub struct LineSegments(pub Vec<LineSegment>);
@@ -42,21 +44,73 @@ impl LineSegments {
         let mut iterator = self.0.iter().peekable();
         let mut from = iterator.next();
         let mut to = iterator.next();
-        let mut output = vec!();
+        let mut return_vec: Vec<Vector> = vec!();
         loop {
+            let v: Vector;
             // draw_line_between(from, to);
 
             // todo: implement me here!
 
 
 
+            // let v = Vector::new(0,0);
+
+            return_vec.append(points_on_a_line(from, to));
+
             to = from;
             from =  iterator.next();
             if from.is_none() {
-                break;
+                break return_vec
             }
         }
     }
+
+    // Bresenham's line algorithm
+    fn points_on_a_line(point_a: Vector, point_b: Vector) -> Vec<Vector> {
+        let mut x1 = point_a.x;
+        let mut y1 = point_a.y;
+        let mut x2 = point_b.x;
+        let mut y2 = point_b.y;
+        let steep = (y2 - y1).abs() > (x2 - x1).abs();
+
+        if steep {
+            mem::swap(&mut x1, &mut y1);
+            mem::swap(&mut x2, &mut y2);
+        }
+
+        if x1 > x2
+        {
+            mem::swap(&mut x1, &mut x2);
+            mem::swap(&mut y1, &mut y2);
+        }
+
+        let dx = x2 - x1;
+        let dy = (y2 - y1).abs();
+
+        let mut error = dx / 2.0;
+        let ystep = if y1 < y2 { 1 } else { -1 };
+        let mut y = y1 as i32;
+
+        let max_x = x2 as i32;
+
+        (x1 as i32..max_x).map( |x|
+                                {
+                                    let v = if steep {
+                                        Vector::new(y, x)
+                                    } else {
+                                        Vector::new(x, y)
+                                    };
+
+                                    error = error - dy;
+                                    if error < 0.0 {
+                                        y += ystep;
+                                        error += dx;
+                                    };
+                                    v
+                                }
+        ).collect::<Vec<Vector>>()
+    }
+
 }
 
 #[test]

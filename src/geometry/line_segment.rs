@@ -33,11 +33,11 @@ impl LineSegment {
 }
 
 impl LineSegments {
-    pub fn new(config: &config::Config) -> LineSegments {
+    pub fn new_top_and_bottom_guards(config: &config::Config) -> LineSegments {
         let top = LineSegment(Vector { x: 0.0, y: 0.0 },
-                              Vector { x: config.window_width, y: 0.0});
-        let bottom = LineSegment(Vector { x: 0.0, y: config.window_height},
-                                 Vector { x: config.window_width, y: config.window_height });
+                              Vector { x: config.window_width, y: 0.0 });
+        let bottom = LineSegment(Vector { x: 0.0, y: config.window_height - 1.0 },
+                                 Vector { x: config.window_width, y: config.window_height - 1.0 });
         LineSegments(vec!(top, bottom))
     }
 

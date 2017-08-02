@@ -14,7 +14,7 @@ impl Board {
     pub fn new(config: &Config) -> Board {
         Board {
             ball: Ball::new(config),
-            reflective_lines: LineSegments::new(config),
+            reflective_lines: LineSegments::new_top_and_bottom_guards(config),
             l_paddle: Paddle::new(config),
             r_paddle: Paddle::new(config),
         }

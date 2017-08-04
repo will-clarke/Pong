@@ -1,4 +1,20 @@
 * Readme [[https://travis-ci.org/will-clarke/pong][https://travis-ci.org/will-clarke/pong.svg?branch=master]]
+
+** Stuff to get this working:
+- add 3rd wall
+- improve key-press sycle (include toggle)
+- get paddle wired in
+- actually implement reflections
+- add scoring to L paddle
+- random starting angle
+
+*** Toggle
+input: paused_toggle: bool
+config: paused: bool
+
+only update config when input is released
+-> input paused == true && keyboard event: paused == false
+
 *** TODO:
 - [ ] Change drawing stuff from IO module to UI
 - [X] Create angles / reflection code
@@ -16,3 +32,4 @@
 - units - surely uints are better?
 - floats are presumably bad
 - how generic do we want to make this?
+

@@ -29,9 +29,6 @@ pub fn intersects(line_1: &LineSegment, line_2: &LineSegment) -> Option<Vector> 
     let t = (q - p) * s / (r * s);
     let u = (q - p) * r / (r * s);
 
-    // println!("r * s == {:?}",r * s );
-    // println!("t == {}", t);
-    // println!("u == {}", u);
     if r * s == 0.0 && (p - q) * r == 0.0 {
         // colinear => Can be more complicated...
         // but let's just say it doesn't intersect

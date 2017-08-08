@@ -1,6 +1,7 @@
 use board::Board;
 use geometry::line_segment::LineSegment;
 use geometry::line_segments::LineSegments;
+use config::Config;
 use ball::Ball;
 use paddle::Paddle;
 use ncurses::*;
@@ -33,6 +34,7 @@ pub trait Drawable {
 }
 
 impl Input {
+
     // TODO: how do we deal with multiple keys at once??
     pub fn new() -> Self {
         Input {
@@ -41,6 +43,7 @@ impl Input {
             paused: false,
         }
     }
+
     pub fn update(&mut self) {
         let ch = getch();
         if self.paused == true {
@@ -55,6 +58,10 @@ impl Input {
         match ch
         {
             // 97 => { addch('$' as u32); }, // a
+
+            106 => { self.l_player = Some(Direction::Up) }, // j
+            107 => { self.l_player = Some(Direction::Down) }, // k
+
             113 => { self.quit = true },
             112 => { //p for pause
                 self.paused = true;
@@ -64,7 +71,7 @@ impl Input {
             KEY_UP => { self.l_player = Some(Direction::Up); },
             KEY_DOWN => { self.l_player = Some(Direction::Down); },
             _ => {
-                addch(ch as u32);
+                self.l_player = None;
             }
         }
 
@@ -83,7 +90,7 @@ impl Drawable for Board {
         /// todo tmp:: remove this...
 
         self.reflective_lines.draw();
-        self.r_paddle.draw();
+        // self.r_paddle.draw();
         self.l_paddle.draw();
         self.ball.draw();
         refresh();

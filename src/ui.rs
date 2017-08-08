@@ -12,10 +12,6 @@ pub fn init_ui() -> (i32, i32) {
     timeout(0);
     raw();
     curs_set(CURSOR_VISIBILITY::CURSOR_INVISIBLE);
-    // TODO: get wrefresh() working with refresh():
-    // full_screen_message(*MAX_Y, *MAX_X, "HEY GUYS!!");
-    // thread::sleep(time::Duration::from_millis(1000));
-    // getch();
     max_y_and_max_x()
 }
 
@@ -43,7 +39,6 @@ fn full_screen_message(max_y: i32, max_x: i32, message: &str) {
     mvprintw( window_starting_y + message_border_y,
               window_starting_x + message_border_x, message);
     wrefresh(welcome_window);
-    thread::sleep(time::Duration::from_millis(1000));
 }
 
 fn max_y_and_max_x() -> (i32, i32) {

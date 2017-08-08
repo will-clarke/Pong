@@ -19,7 +19,7 @@ impl Game {
     pub fn tick(&mut self) {
         self.input.update();
         self.board.draw();
-        self.board.update();
+        self.board.update(&self.input);
 
         if self.input.quit == true {
             endwin();
@@ -27,7 +27,7 @@ impl Game {
         }
 
         // todo.. calculate dt
-        thread::sleep(time::Duration::from_millis(100));
+        thread::sleep(time::Duration::from_millis(10));
     }
 
     pub fn new() -> Game {

@@ -82,7 +82,7 @@ impl Ball {
         Ball {
             current_position: starting_pos,
             direction: Angle(0.35), // TODO: make this random!!
-            distance: 10.0,
+            distance: 1.0,
         }
     }
 

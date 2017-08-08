@@ -16,9 +16,12 @@ pub struct Board {
 impl Board {
     pub fn new(config: &Config) -> Board {
         let l_paddle = Paddle::new(config);
+        let mut line_segments =  LineSegments::new_top_and_bottom_guards(config);
+        line_segments.0.push(LineSegment(Vector::new(0,0), Vector::new(0,0)));
+
         Board {
             ball: Ball::new(config),
-            reflective_lines: LineSegments::new_top_and_bottom_guards(config),
+            reflective_lines: line_segments,
             l_paddle: l_paddle,
             // r_paddle: Paddle::new(config),
         }
@@ -31,10 +34,11 @@ impl Board {
             Vector { x: 0.0, y: self.l_paddle.y + self.l_paddle.length }
         );
 
-        // TODO: fix this horrobly inefficient clone
+        // TODO: fix nasty hack to pop lsat element, which happens to be previous paddle...
         {
-            // let mut reflective_lines = &mut self.reflective_lines;
-            // reflective_lines.0.push(paddle_segment);
+            let mut reflective_lines = &mut self.reflective_lines;
+            reflective_lines.0.pop();
+            reflective_lines.0.push(paddle_segment);
         }
         self.ball = self.ball.update_position(&self.reflective_lines);
     }

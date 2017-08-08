@@ -1,7 +1,11 @@
 use geometry::line_segment::LineSegment;
 use geometry::vector::Vector;
+use std;
 
-#[derive(PartialEq,Debug,PartialOrd)]
+// TODO: dedup definition of tau from vector:
+static TAU: f64 = 2.0 * std::f64::consts::PI;
+
+#[derive(Clone,Copy,PartialEq,Debug,PartialOrd)]
 pub struct Angle(pub f64);
 
 impl Angle {
@@ -13,6 +17,13 @@ impl Angle {
             };
 
         Angle((2.0 * angle_of_line_segment.0 - self.0).abs() % 1.0)
+    }
+
+    pub fn to_vector(&self) -> Vector {
+        Vector {
+            x: (self.0 * TAU).sin(),
+            y: (self.0 * TAU).cos(),
+        }
     }
 }
 
@@ -44,4 +55,18 @@ fn test_reflect() {
 // TODO: create test module here for this
 fn assert_kind_of_equal(a: Angle, b: Angle) {
     assert!((a.0 - b.0).abs() < 0.001);
+}
+
+
+// TODO: also dedup... maybe make this generic???
+fn assert_vector_eq(a: Vector, b: Vector) {
+    assert!((a.x - b.x).abs() < 0.001);
+    assert!((a.y - b.y).abs() < 0.001);
+}
+
+#[test]
+fn test_to_vector() {
+    assert_vector_eq(Angle(0.0).to_vector(), Vector { x: 0.0, y: 1.0 });
+    assert_vector_eq(Angle(0.25).to_vector(), Vector { x: 1.0, y: 0.0 });
+    assert_vector_eq(Angle(0.5).to_vector(), Vector { x: 0.0, y: -1.0 });
 }

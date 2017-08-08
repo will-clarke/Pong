@@ -7,7 +7,6 @@ use std::mem;
 use ncurses::*;
 
 pub struct LineSegment(pub Vector, pub Vector);
-pub struct LineSegments(pub Vec<LineSegment>);
 
 impl LineSegment {
     fn to_slope(&self) -> Slope {
@@ -24,6 +23,12 @@ impl LineSegment {
         self.relative_delta().to_angle()
     }
 
+    pub fn distance(&self) -> f64 {
+        let difference = self.relative_delta();
+        (difference.x * difference.x +
+            difference.y * difference.y).sqrt()
+    }
+
     fn relative_delta(&self) -> Vector {
         Vector {
             x: self.0.x - self.1.x,
@@ -32,68 +37,6 @@ impl LineSegment {
     }
 }
 
-impl LineSegments {
-    pub fn new_top_and_bottom_guards(config: &config::Config) -> LineSegments {
-        let top = LineSegment(Vector { x: 0.0, y: 0.0 },
-                              Vector { x: config.window_width, y: 0.0 });
-        let bottom = LineSegment(Vector { x: 0.0, y: config.window_height - 1.0 },
-                                 Vector { x: config.window_width, y: config.window_height - 1.0 });
-        LineSegments(vec!(top, bottom))
-    }
-
-    pub fn to_intermediate_vectors(&self) -> Vec<Vector> {
-        self.0.iter().flat_map (|line|
-                                LineSegments::points_on_a_line(line.0, line.1)).
-            collect()
-    }
-
-    // Bresenham's line algorithm
-    pub fn points_on_a_line(point_a: Vector, point_b: Vector) -> Vec<Vector> {
-        let mut x1 = point_a.x;
-        let mut y1 = point_a.y;
-        let mut x2 = point_b.x;
-        let mut y2 = point_b.y;
-        let steep = (y2 - y1).abs() > (x2 - x1).abs();
-
-        if steep {
-            mem::swap(&mut x1, &mut y1);
-            mem::swap(&mut x2, &mut y2);
-        }
-
-        if x1 > x2
-        {
-            mem::swap(&mut x1, &mut x2);
-            mem::swap(&mut y1, &mut y2);
-        }
-
-        let dx = x2 - x1;
-        let dy = (y2 - y1).abs();
-
-        let mut error = dx / 2.0;
-        let ystep = if y1 < y2 { 1 } else { -1 };
-        let mut y = y1 as i32;
-
-        let max_x = x2 as i32;
-
-        (x1 as i32..max_x).map( |x|
-                                 {
-                                     let v = if steep {
-                                         Vector::new(y, x)
-                                     } else {
-                                         Vector::new(x, y)
-                                     };
-
-                                     error = error - dy;
-                                     if error < 0.0 {
-                                         y += ystep;
-                                         error += dx;
-                                     };
-                                     v
-                                 }
-        ).collect::<Vec<Vector>>()
-    }
-
-}
 
 #[test]
 fn test_initalize() {
@@ -116,4 +59,16 @@ fn test_to_slope() {
         y_intercept: 5.5,
     };
     assert_eq!(line.to_slope(), expected_slope);
+}
+
+#[test]
+fn test_distance() {
+    let p1 = Vector::new(0, 0);
+    let p2 = Vector::new(5, 0);
+    let line = LineSegment(p1, p2);
+    assert_eq!(line.distance(), 5.0);
+    let p1 = Vector::new(0, 0);
+    let p2 = Vector::new(0, 5);
+    let line = LineSegment(p1, p2);
+    assert_eq!(line.distance(), 5.0);
 }

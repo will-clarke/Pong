@@ -1,5 +1,6 @@
 use board::Board;
-use geometry::line_segment::{LineSegment,LineSegments};
+use geometry::line_segment::LineSegment;
+use geometry::line_segments::LineSegments;
 use ball::Ball;
 use paddle::Paddle;
 use ncurses::*;

@@ -1,5 +1,7 @@
 use geometry::line_segment::LineSegment;
 use geometry::vector::Vector;
+use std::fmt;
+use std::ops;
 use std;
 
 // TODO: dedup definition of tau from vector:
@@ -11,6 +13,7 @@ pub struct Angle(pub f64);
 impl Angle {
     pub fn reflect(&self, line_segment: &LineSegment) -> Angle {
         let mut angle_of_line_segment = line_segment.to_angle();
+
         if angle_of_line_segment <= Angle(self.0 - 0.25) ||
             angle_of_line_segment >= Angle(self.0 + 0.25) {
                 angle_of_line_segment = Angle((angle_of_line_segment.0 + 1.5).abs())
@@ -26,6 +29,21 @@ impl Angle {
         }
     }
 }
+
+impl ops::Add<f64> for Angle {
+    type Output = Angle;
+
+    fn add(self, other: f64) -> Angle {
+        Angle((self.0 + other) % 1.0)
+    }
+}
+
+impl fmt::Display for Angle {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Angle< {} >", self.0)
+    }
+}
+
 
 #[test]
 fn test_reflect() {
@@ -50,6 +68,7 @@ fn test_reflect() {
     let incoming_angle = Angle(0.5);
     let outgoing_angle = incoming_angle.reflect(&segment);
     assert_eq!(outgoing_angle, Angle(0.75));
+
 }
 
 // TODO: create test module here for this

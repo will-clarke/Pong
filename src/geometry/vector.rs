@@ -2,6 +2,7 @@ extern crate num;
 
 use std::ops;
 use geometry::angle::Angle;
+use std::fmt;
 use std;
 
 static TAU: f64 = 2.0 * std::f64::consts::PI;
@@ -59,6 +60,12 @@ impl ops::Add for Vector {
             x: self.x + other.x,
             y: self.y + other.y,
         }
+    }
+}
+
+impl fmt::Display for Vector {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "({}, {})", self.x, self.y)
     }
 }
 

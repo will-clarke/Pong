@@ -14,8 +14,16 @@ pub struct Ball {
 
 
 impl Ball {
+
     pub fn update_position(&self, line_segments: &LineSegments) -> Ball {
+
         let unit_vector = self.direction.to_vector();
+        //  TODO: sort out this nasty hack to avoid transposing the to_vector method to deal with flipped y coordinates
+        // let unit_vector = Vector {
+        //     x: unit_vector.x,
+        //     y: -unit_vector.y,
+        // };
+
         let new_pos = Vector {
             x: self.current_position.x + (unit_vector.x * self.distance),
             y: self.current_position.y + (unit_vector.y * self.distance),
@@ -24,7 +32,10 @@ impl Ball {
         let line_to_new_pos = LineSegment(self.current_position, new_pos);
 
         // TODO: make this guy correct... we may be bouncing off the wrong wall (we're currently randomly choosing one)..
-        let line_which_intersects = line_segments.0.iter().filter(|&segment| line_segment_intersection::intersects(&segment, &line_to_new_pos).is_some()).last();
+        let line_which_intersects = line_segments.0.iter().
+            filter(|&segment|
+                   line_segment_intersection::intersects(&segment, &line_to_new_pos).is_some()
+            ).last();
 
         let next_position_and_direction = match line_which_intersects {
             Some(line_segment) => {
@@ -34,15 +45,22 @@ impl Ball {
                 // that we've already done
                 let intersection_point = line_segment_intersection::intersects(line_segment, &line_to_new_pos).unwrap();
                 let distance_to_intersection = LineSegment(self.current_position, intersection_point).distance();
-                let distance_left = distance_to_intersection - self.distance;
-                let angle = self.direction.reflect(line_segment);
+                let distance_left = self.distance - distance_to_intersection;
+                let new_angle = self.direction.reflect(line_segment);
 
-                let angle_vector = angle.to_vector();
+                let angle_vector = new_angle.to_vector();
 
-                (Vector {
+                // let angle_vector = Vector {
+                //     x: angle_vector.x,
+                //     y: -angle_vector.y,
+                // };
+
+                let new_position = Vector {
                     x: intersection_point.x + angle_vector.x * distance_left,
                     y: intersection_point.y + angle_vector.y * distance_left,
-                }, angle)
+                };
+
+                (new_position, new_angle)
 
             }
             None => (new_pos, self.direction),
@@ -64,7 +82,7 @@ impl Ball {
         Ball {
             current_position: starting_pos,
             direction: Angle(0.35), // TODO: make this random!!
-            distance: 5.0,
+            distance: 10.0,
         }
     }
 

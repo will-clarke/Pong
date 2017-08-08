@@ -2,10 +2,11 @@ use geometry::vector::Vector;
 use geometry::slope::Slope;
 use geometry::angle::Angle;
 use config;
-use std::mem;
+use std::{mem, fmt};
 
 use ncurses::*;
 
+#[derive(Debug)]
 pub struct LineSegment(pub Vector, pub Vector);
 
 impl LineSegment {
@@ -34,6 +35,13 @@ impl LineSegment {
             x: self.0.x - self.1.x,
             y: self.0.y - self.1.y,
         }
+    }
+}
+
+impl fmt::Display for LineSegment {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "({}, {}) <-> ({}, {})", self.0.x, self.0.y,
+        self.1.x, self.1.y)
     }
 }
 

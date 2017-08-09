@@ -2,17 +2,16 @@ use ncurses::*;
 use std::{thread, time};
 
 lazy_static! {
-    static ref MAX_Y: i32 = max_y();
-    static ref MAX_X: i32 = max_x();
+    pub static ref MAX_Y: i32 = max_y();
+    pub static ref MAX_X: i32 = max_x();
 }
 
-pub fn init_ui() -> (i32, i32) {
+pub fn init_ui() {
     initscr();
     noecho();
     timeout(0);
     raw();
     curs_set(CURSOR_VISIBILITY::CURSOR_INVISIBLE);
-    max_y_and_max_x()
 }
 
 pub fn end_ui() {

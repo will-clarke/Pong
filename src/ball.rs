@@ -4,7 +4,9 @@ use geometry::angle::Angle;
 use geometry::line_segments::LineSegments;
 use geometry::line_segment::LineSegment;
 use geometry::line_segment_intersection;
+use io::Input;
 use config;
+use ui;
 
 pub struct Ball {
     pub current_position: Vector,
@@ -15,7 +17,12 @@ pub struct Ball {
 
 impl Ball {
 
-    pub fn update_position(&self, line_segments: &LineSegments) -> Ball {
+    pub fn update_position(&self, line_segments: &LineSegments, input: &mut Input) -> Ball {
+
+        if input.restart == true {
+            input.restart = false;
+            return Ball::new();
+        }
 
         let unit_vector = self.direction.to_vector();
         //  TODO: sort out this nasty hack to avoid transposing the to_vector method to deal with flipped y coordinates
@@ -73,10 +80,10 @@ impl Ball {
         }
     }
 
-    pub fn new(config: &config::Config) -> Ball {
+    pub fn new() -> Ball {
         let starting_pos = Vector {
-            x: config.window_width / 2.0,
-            y: config.window_height / 2.0,
+            x: *ui::MAX_X as f64 / 2.0,
+            y: *ui::MAX_Y as f64 / 2.0,
         };
 
         Ball {

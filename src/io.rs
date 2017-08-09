@@ -27,6 +27,7 @@ pub struct Input {
     pub l_player: Option<Direction>,
     pub quit: bool,
     pub paused: bool,
+    pub restart: bool,
 }
 
 pub trait Drawable {
@@ -41,6 +42,7 @@ impl Input {
             l_player: None,
             quit: false,
             paused: false,
+            restart: false,
         }
     }
 
@@ -59,8 +61,10 @@ impl Input {
         {
             // 97 => { addch('$' as u32); }, // a
 
-            106 => { self.l_player = Some(Direction::Up) }, // j
-            107 => { self.l_player = Some(Direction::Down) }, // k
+            106 => { self.l_player = Some(Direction::Down) }, // j
+            107 => { self.l_player = Some(Direction::Up) }, // k
+
+            114 => { self.restart = true }, // r
 
             113 => { self.quit = true },
             112 => { //p for pause

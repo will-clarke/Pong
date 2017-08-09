@@ -19,7 +19,7 @@ impl Game {
     pub fn tick(&mut self) {
         self.input.update();
         self.board.draw();
-        self.board.update(&self.input);
+        self.board.update(&mut self.input);
 
         if self.input.quit == true {
             endwin();
@@ -31,8 +31,8 @@ impl Game {
     }
 
     pub fn new() -> Game {
-        let (max_x, max_y) = ui::init_ui();
-        let config = Config::new(max_y, max_x);
+        ui::init_ui();
+        let config = Config::new();
         Game {
             config: config,
             board: Board::new(&config),

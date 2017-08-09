@@ -20,10 +20,14 @@ impl Paddle {
     pub fn update(&mut self, input: &Input) {
         match input.l_player {
             Some(Direction::Up) =>  {
-                self.y += 0.5;
+                if self.y > 0.0 {
+                    self.y -= 0.5;
+                }
             },
             Some(Direction::Down) => {
-                self.y -= 0.5;
+                if self.max_y > self.y + self.length {
+                    self.y += 0.5;
+                }
             },
             _ => {}
         }

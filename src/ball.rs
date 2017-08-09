@@ -1,11 +1,9 @@
-use board::Board;
 use geometry::vector::Vector;
 use geometry::angle::Angle;
 use geometry::line_segments::LineSegments;
 use geometry::line_segment::LineSegment;
 use geometry::line_segment_intersection;
 use io::Input;
-use config;
 use ui;
 
 pub struct Ball {

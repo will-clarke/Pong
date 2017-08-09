@@ -1,3 +1,9 @@
+use board::Board;
+use geometry::line_segments::LineSegments;
+use paddle::Paddle;
+use ball::Ball;
+
+
 use ncurses::*;
 use std::{thread, time};
 
@@ -53,4 +59,50 @@ fn max_y() -> i32 {
 
 fn max_x() -> i32 {
     max_y_and_max_x().1
+}
+
+pub trait Drawable {
+    fn draw(&self);
+}
+
+
+impl Drawable for Board {
+    fn draw(&self) {
+        clear();
+        self.reflective_lines.draw();
+        // self.r_paddle.draw();
+        self.l_paddle.draw();
+        self.ball.draw();
+        refresh();
+    }
+}
+
+impl Drawable for LineSegments {
+    fn draw(&self) {
+        for vec in self.to_intermediate_vectors() {
+            mvaddch(vec.y as i32,
+                    vec.x as i32,
+                    'X' as u32);
+        }
+    }
+
+}
+
+impl Drawable for Paddle {
+    fn draw(&self) {
+        for i in 0..self.length as i32 {
+            mvaddch((self.y as i32) + i,
+                    0,
+                    'I' as u32);
+            // '█' as u32);
+        }
+    }
+}
+
+impl Drawable for Ball {
+    fn draw(&self) {
+        mvaddch(self.current_position.y as i32,
+                self.current_position.x as i32,
+                'o' as u32);
+    }
 }

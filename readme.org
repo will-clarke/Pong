@@ -6,7 +6,6 @@
 - add random shapes in. eg. have swirling triangles in 'hard' mode
 
 *** TODO:
-- [ ] Change drawing stuff from IO module to UI
 - [ ] benchmark different intersection algorithms to find the most efficient
 - [ ] ? Rename line to line segment & generally rename words about lines / segments / chords / rays / points / slopes etc...
 -

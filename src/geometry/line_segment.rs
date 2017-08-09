@@ -1,10 +1,7 @@
 use geometry::vector::Vector;
 use geometry::slope::Slope;
 use geometry::angle::Angle;
-use config;
-use std::{mem, fmt};
-
-use ncurses::*;
+use std::fmt;
 
 #[derive(Debug)]
 pub struct LineSegment(pub Vector, pub Vector);

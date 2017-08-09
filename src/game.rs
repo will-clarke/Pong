@@ -3,7 +3,7 @@ use board::Board;
 use score::Score;
 use ui;
 use io::Input;
-use io::Drawable;
+use ui::Drawable;
 use ncurses::endwin;
 
 use std::{thread, time, process};

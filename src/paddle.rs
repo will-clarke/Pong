@@ -2,6 +2,8 @@ use config::Config;
 use io::Input;
 use io::Direction;
 
+static PADDLE_MOVEMENT: f64 = 1.0;
+
 pub struct Paddle {
     pub y: f64,
     pub length: f64,
@@ -21,12 +23,12 @@ impl Paddle {
         match input.l_player {
             Some(Direction::Up) =>  {
                 if self.y > 0.0 {
-                    self.y -= 0.5;
+                    self.y -= PADDLE_MOVEMENT;
                 }
             },
             Some(Direction::Down) => {
                 if self.max_y > self.y + self.length {
-                    self.y += 0.5;
+                    self.y += PADDLE_MOVEMENT;
                 }
             },
             _ => {}

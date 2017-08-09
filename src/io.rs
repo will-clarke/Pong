@@ -85,14 +85,6 @@ impl Input {
 impl Drawable for Board {
     fn draw(&self) {
         clear();
-
-        let one = LineSegment(Vector::new(5, 5), Vector::new(5, 30));
-        let two = LineSegment(Vector::new(5, 30), Vector::new(40, 30));
-        let three = LineSegment(Vector::new(40, 30), Vector::new(5, 5));
-        let segments = LineSegments(vec!(one, two, three));
-        segments.draw();
-        /// todo tmp:: remove this...
-
         self.reflective_lines.draw();
         // self.r_paddle.draw();
         self.l_paddle.draw();

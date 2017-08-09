@@ -1,5 +1,7 @@
 * Readme [[https://travis-ci.org/will-clarke/pong][https://travis-ci.org/will-clarke/pong.svg?branch=master]]
 
+Idea: use a second thread to detect input. That way, were don't have to worry about hacking nurses to be non blocking. 
+
 ** Stuff to get this working:
 - improve key-press cycle (include toggle)
 - add scoring to L paddle

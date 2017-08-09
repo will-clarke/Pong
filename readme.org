@@ -1,9 +1,8 @@
 * Readme [[https://travis-ci.org/will-clarke/pong][https://travis-ci.org/will-clarke/pong.svg?branch=master]]
 
 ** Stuff to get this working:
-- improve key-press sycle (include toggle)
+- improve key-press cycle (include toggle)
 - add scoring to L paddle
-- random starting angle
 
 *** Toggle
 input: paused_toggle: bool

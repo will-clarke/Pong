@@ -26,8 +26,8 @@ pub struct Input {
     // r_player: Direction,
     pub l_player: Option<Direction>,
     pub quit: bool,
-    pub paused: bool,
-    pub restart: bool,
+    pub paused_toggle: bool,
+    pub restart_toggle: bool,
 }
 
 pub trait Drawable {
@@ -41,17 +41,17 @@ impl Input {
         Input {
             l_player: None,
             quit: false,
-            paused: false,
-            restart: false,
+            paused_toggle: false,
+            restart_toggle: false,
         }
     }
 
     pub fn update(&mut self) {
         let ch = getch();
-        if self.paused == true {
+        if self.paused_toggle == true {
             loop {
                 match getch() {
-                    112 => { self.paused = false; break; },
+                    112 => { self.paused_toggle = false; break; },
                     113 => { endwin(); process::exit(0); },
                     _   => {}
                 }
@@ -64,13 +64,13 @@ impl Input {
             106 => { self.l_player = Some(Direction::Down) }, // j
             107 => { self.l_player = Some(Direction::Up) }, // k
 
-            114 => { self.restart = true }, // r
+            114 => { self.restart_toggle = true }, // r
 
             113 => { self.quit = true },
             112 => { //p for pause
-                self.paused = true;
+                self.paused_toggle = true;
             },
-            KEY_LEFT => { self.paused = true; printw("OMG"); ; self.l_player = Some(Direction::Left); },
+            KEY_LEFT => { self.paused_toggle = true; printw("OMG"); ; self.l_player = Some(Direction::Left); },
             KEY_RIGHT => { self.l_player = Some(Direction::Right); },
             KEY_UP => { self.l_player = Some(Direction::Up); },
             KEY_DOWN => { self.l_player = Some(Direction::Down); },

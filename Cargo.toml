@@ -7,3 +7,4 @@ authors = ["William Clarke <wmmclarke@gmail.com>"]
 num = "0.1.40"
 ncurses = "5.86.0"
 lazy_static = "0.2.8"
+rand = "0.3"

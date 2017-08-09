@@ -17,10 +17,22 @@ pub struct Ball {
 
 impl Ball {
 
+    pub fn new() -> Ball {
+        let starting_pos = Vector {
+            x: *ui::MAX_X as f64 / 2.0,
+            y: *ui::MAX_Y as f64 / 2.0,
+        };
+
+        Ball {
+            current_position: starting_pos,
+            direction: Angle::random_start(),
+            distance: 1.0,
+        }
+    }
     pub fn update_position(&self, line_segments: &LineSegments, input: &mut Input) -> Ball {
 
-        if input.restart == true {
-            input.restart = false;
+        if input.restart_toggle == true {
+            input.restart_toggle = false;
             return Ball::new();
         }
 
@@ -77,19 +89,6 @@ impl Ball {
             current_position: next_position_and_direction.0,
             direction: next_position_and_direction.1,
             distance: self.distance,
-        }
-    }
-
-    pub fn new() -> Ball {
-        let starting_pos = Vector {
-            x: *ui::MAX_X as f64 / 2.0,
-            y: *ui::MAX_Y as f64 / 2.0,
-        };
-
-        Ball {
-            current_position: starting_pos,
-            direction: Angle(0.35), // TODO: make this random!!
-            distance: 1.0,
         }
     }
 

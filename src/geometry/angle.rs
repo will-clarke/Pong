@@ -2,6 +2,8 @@ use geometry::line_segment::LineSegment;
 use geometry::vector::Vector;
 use std::fmt;
 use std::ops;
+use rand::Rng;
+use rand;
 use std;
 
 // TODO: dedup definition of tau from vector:
@@ -27,6 +29,17 @@ impl Angle {
             x: (self.0 * TAU).sin(),
             y: (self.0 * TAU).cos(),
         }
+    }
+
+    pub fn random_start() -> Self {
+        let mut rng = rand::thread_rng();
+        let random_directions = [
+            rng.gen_range(0.1, 0.4),
+            rng.gen_range(0.6, 0.9),
+        ];
+        let random_direction = rng.choose(&random_directions).
+            unwrap();
+        Angle(*random_direction)
     }
 }
 

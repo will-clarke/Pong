@@ -6,6 +6,7 @@
 extern crate lazy_static;
 extern crate num;
 extern crate ncurses;
+extern crate rand;
 
 
 mod geometry;

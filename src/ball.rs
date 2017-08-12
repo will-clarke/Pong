@@ -25,7 +25,7 @@ impl Ball {
         Ball {
             current_position: starting_pos,
             direction: Angle::random_start(),
-            distance: 0.7,
+            distance: 0.1,
         }
     }
     pub fn update_position(&self, line_segments: &LineSegments, input: &mut Input, score: &mut Score) -> Ball {

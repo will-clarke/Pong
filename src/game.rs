@@ -31,7 +31,7 @@ impl Game {
         }
 
         // todo.. calculate dt
-        thread::sleep(time::Duration::from_millis(10));
+        thread::sleep(time::Duration::from_millis(1));
     }
 
     pub fn new() -> Game {

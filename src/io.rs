@@ -54,7 +54,8 @@ impl Input {
         {
             65 => { self.l_player = Some(Direction::Up); }, // UP KEY
             66 => { self.l_player = Some(Direction::Down); }, // DOWN KEY
-            // TODO: WHY DOESNT THE DEFAULT WORK ON MY MAC?
+
+            // TODO: WHY DOESNT THE DEFAULT KEY_LEFT ETC.. WORK ON MY MAC?
             KEY_DOWN => { self.l_player = Some(Direction::Down); },
             KEY_LEFT => { self.paused_toggle = true; printw("OMG"); ; self.l_player = Some(Direction::Left); },
             KEY_RIGHT => { self.l_player = Some(Direction::Right); },

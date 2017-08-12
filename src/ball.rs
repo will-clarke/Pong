@@ -25,13 +25,14 @@ impl Ball {
         Ball {
             current_position: starting_pos,
             direction: Angle::random_start(),
-            distance: 1.0,
+            distance: 0.7,
         }
     }
     pub fn update_position(&self, line_segments: &LineSegments, input: &mut Input, score: &mut Score) -> Ball {
 
         if input.restart_toggle == true {
             input.restart_toggle = false;
+            score.l_score = 0;
             return Ball::new();
         }
 

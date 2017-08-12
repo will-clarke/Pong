@@ -1,5 +1,4 @@
 use ncurses::*;
-
 use std::process;
 
 pub enum Direction {

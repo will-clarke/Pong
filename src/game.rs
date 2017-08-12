@@ -9,7 +9,7 @@ use ncurses::*;
 use std::{thread, time, process};
 
 pub struct Game {
-    config: Config,
+    // config: Config,
     board: Board,
     score: Score,
     input: Input,
@@ -38,7 +38,7 @@ impl Game {
         ui::init_ui();
         let config = Config::new();
         Game {
-            config: config,
+            // config: config,
             board: Board::new(&config),
             score: Score::new(),
             input: Input::new(),

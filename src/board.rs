@@ -45,8 +45,4 @@ impl Board {
         self.ball = self.ball.update_position(&self.reflective_lines, input, score);
     }
 
-    pub fn check_score(&self, score: &mut Score) {
-
-    }
-
 }

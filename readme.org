@@ -3,9 +3,9 @@
 Idea: use a second thread to detect input. That way, were don't have to worry about hacking nurses to be non blocking. 
 
 ** Stuff to get this working:
-- improve key-press cycle (include toggle)
-- add scoring to L paddle
 - add random shapes in. eg. have swirling triangles in 'hard' mode
+- Add sdl or something.. make this properly graphical.
+- improve key-press cycle (include toggle)
 
 *** TODO:
 - [ ] benchmark different intersection algorithms to find the most efficient
@@ -13,8 +13,7 @@ Idea: use a second thread to detect input. That way, were don't have to worry ab
 -
 *** Other things to think about
 - how generic do we want to make this?
-
-*** Toggle
+**** Toggle
 input: paused_toggle: bool
 config: paused: bool
 

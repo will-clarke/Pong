@@ -5,6 +5,7 @@ use ball::Ball;
 use paddle::Paddle;
 use config::Config;
 use io::Input;
+use score::Score;
 
 // TODO: add r_paddle to board struct
 pub struct Board {
@@ -28,7 +29,7 @@ impl Board {
         }
     }
 
-    pub fn update(&mut self, input: &mut Input) {
+    pub fn update(&mut self, input: &mut Input, score: &mut Score) {
         self.l_paddle.update(input);
         let paddle_segment = LineSegment(
             Vector { x: 0.0, y: self.l_paddle.y },
@@ -41,7 +42,11 @@ impl Board {
             reflective_lines.0.pop();
             reflective_lines.0.push(paddle_segment);
         }
-        self.ball = self.ball.update_position(&self.reflective_lines, input);
+        self.ball = self.ball.update_position(&self.reflective_lines, input, score);
+    }
+
+    pub fn check_score(&self, score: &mut Score) {
+
     }
 
 }

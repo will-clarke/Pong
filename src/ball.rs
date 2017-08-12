@@ -3,6 +3,7 @@ use geometry::angle::Angle;
 use geometry::line_segments::LineSegments;
 use geometry::line_segment::LineSegment;
 use geometry::line_segment_intersection;
+use score::Score;
 use io::Input;
 use ui;
 
@@ -27,7 +28,7 @@ impl Ball {
             distance: 1.0,
         }
     }
-    pub fn update_position(&self, line_segments: &LineSegments, input: &mut Input) -> Ball {
+    pub fn update_position(&self, line_segments: &LineSegments, input: &mut Input, score: &mut Score) -> Ball {
 
         if input.restart_toggle == true {
             input.restart_toggle = false;
@@ -56,6 +57,11 @@ impl Ball {
 
         let next_position_and_direction = match line_which_intersects {
             Some(line_segment) => {
+                let end_segment = LineSegment(Vector { x: *ui::MAX_X as f64 - 1.0, y: 0.0},
+                                              Vector { x: *ui::MAX_X as f64 - 1.0, y: *ui::MAX_Y as f64 - 1.0 });
+                if line_segment == &end_segment {
+                    score.l_score += 1;
+                }
                 // TODO: recompute this if we actually reflect once.. otherwise it could be WRONG :scream:
                 // TODO: make this guy more efficient.
                 // We're recalculating an intersection

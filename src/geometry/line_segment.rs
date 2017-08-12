@@ -3,7 +3,7 @@ use geometry::slope::Slope;
 use geometry::angle::Angle;
 use std::fmt;
 
-#[derive(Debug)]
+#[derive(Debug,PartialEq)]
 pub struct LineSegment(pub Vector, pub Vector);
 
 impl LineSegment {

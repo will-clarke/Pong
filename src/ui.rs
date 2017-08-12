@@ -2,10 +2,9 @@ use board::Board;
 use geometry::line_segments::LineSegments;
 use paddle::Paddle;
 use ball::Ball;
-
+use score::Score;
 
 use ncurses::*;
-use std::{thread, time};
 
 lazy_static! {
     pub static ref MAX_Y: i32 = max_y();
@@ -25,27 +24,6 @@ pub fn end_ui() {
     endwin();
 }
 
-fn full_screen_message(max_y: i32, max_x: i32, message: &str) {
-    // clear();
-    // refresh();
-    let message_length = message.chars().count() as i32;
-    let message_border_y = 3;
-    let message_border_x = 5;
-
-    let window_x_size = message_length + message_border_x * 2;
-    let window_y_size = 1 + message_border_y * 2;
-
-    let window_starting_x = (max_x - window_x_size) / 2;
-    let window_starting_y = (max_y - window_y_size) / 2;
-
-    let welcome_window = newwin(window_y_size, window_x_size,
-                                window_starting_y, window_starting_x);
-    box_(welcome_window, 0, 0);
-    mvprintw( window_starting_y + message_border_y,
-              window_starting_x + message_border_x, message);
-    wrefresh(welcome_window);
-}
-
 fn max_y_and_max_x() -> (i32, i32) {
     let mut max_x = 0;
     let mut max_y = 0;
@@ -61,19 +39,34 @@ fn max_x() -> i32 {
     max_y_and_max_x().1
 }
 
+// fn full_screen_message(max_y: i32, max_x: i32, message: &str) {
+//     // clear();
+//     // refresh();
+//     let message_length = message.chars().count() as i32;
+//     let message_border_y = 3;
+//     let message_border_x = 5;
+//     let window_x_size = message_length + message_border_x * 2;
+//     let window_y_size = 1 + message_border_y * 2;
+//     let window_starting_x = (max_x - window_x_size) / 2;
+//     let window_starting_y = (max_y - window_y_size) / 2;
+//     let welcome_window = newwin(window_y_size, window_x_size,
+//                                 window_starting_y, window_starting_x);
+//     box_(welcome_window, 0, 0);
+//     mvprintw( window_starting_y + message_border_y,
+//               window_starting_x + message_border_x, message);
+//     wrefresh(welcome_window);
+// }
+
 pub trait Drawable {
     fn draw(&self);
 }
 
-
 impl Drawable for Board {
     fn draw(&self) {
-        clear();
         self.reflective_lines.draw();
         // self.r_paddle.draw();
         self.l_paddle.draw();
         self.ball.draw();
-        refresh();
     }
 }
 
@@ -104,5 +97,13 @@ impl Drawable for Ball {
         mvaddch(self.current_position.y as i32,
                 self.current_position.x as i32,
                 'o' as u32);
+    }
+}
+
+impl Drawable for Score {
+    fn draw(&self) {
+            mvprintw( *MAX_Y - 4,
+                      *MAX_X - 13,
+                       &format!("SCORE: {}", self.l_score));
     }
 }

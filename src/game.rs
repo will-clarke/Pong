@@ -4,7 +4,7 @@ use score::Score;
 use ui;
 use io::Input;
 use ui::Drawable;
-use ncurses::endwin;
+use ncurses::*;
 
 use std::{thread, time, process};
 
@@ -18,8 +18,12 @@ pub struct Game {
 impl Game {
     pub fn tick(&mut self) {
         self.input.update();
+        self.board.update(&mut self.input, &mut self.score);
+
+        clear();
+        self.score.draw();
         self.board.draw();
-        self.board.update(&mut self.input);
+        refresh();
 
         if self.input.quit == true {
             endwin();

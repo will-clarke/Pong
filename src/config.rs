@@ -1,12 +1,15 @@
+use geometry::line_segments::LineSegments;
 use ui;
 
-#[derive(Clone,Copy)]
+// #[derive(Clone,Copy)]
 pub struct Config {
     pub window_width: f64,
     pub window_height: f64,
     pub paddle_size: f64,
     pub paused: bool,
     pub reset: bool,
+    pub shape: bool,
+    pub intersection_lines: LineSegments,
 }
 
 impl Config {
@@ -17,6 +20,8 @@ impl Config {
             paddle_size: 8.0,
             paused: false,
             reset: false,
+            shape: false,
+            intersection_lines: LineSegments::new_top_and_bottom_guards(),
         }
     }
 }

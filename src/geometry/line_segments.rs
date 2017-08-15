@@ -2,18 +2,21 @@ use std::mem;
 use config;
 use geometry::vector::Vector;
 use geometry::line_segment::LineSegment;
+use ui;
 
 pub struct LineSegments(pub Vec<LineSegment>);
 
 
 impl LineSegments {
-    pub fn new_top_and_bottom_guards(config: &config::Config) -> LineSegments {
+    pub fn new_top_and_bottom_guards() -> LineSegments {
+        let max_win_x = *ui::MAX_X as f64;
+        let max_win_y = *ui::MAX_Y as f64;
         let top = LineSegment(Vector { x: 0.0, y: 0.0 },
-                              Vector { x: config.window_width, y: 0.0 });
-        let bottom = LineSegment(Vector { x: 0.0, y: config.window_height - 1.0 },
-                                 Vector { x: config.window_width, y: config.window_height - 1.0 });
-        let right = LineSegment(Vector { x: config.window_width - 1.0, y: 0.0},
-                                Vector { x: config.window_width - 1.0, y: config.window_height - 1.0 });
+                              Vector { x: max_win_x, y: 0.0 });
+        let bottom = LineSegment(Vector { x: 0.0, y: max_win_y - 1.0 },
+                                 Vector { x: max_win_x, y: max_win_y - 1.0 });
+        let right = LineSegment(Vector { x: max_win_x - 1.0, y: 0.0},
+                                Vector { x: max_win_x - 1.0, y: max_win_y - 1.0 });
         LineSegments(vec!(top, bottom, right))
     }
 

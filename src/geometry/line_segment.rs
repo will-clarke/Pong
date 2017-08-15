@@ -1,12 +1,26 @@
 use geometry::vector::Vector;
 use geometry::slope::Slope;
 use geometry::angle::Angle;
+use config::Config;
 use std::fmt;
 
 #[derive(Debug,PartialEq)]
 pub struct LineSegment(pub Vector, pub Vector);
 
 impl LineSegment {
+    pub fn new(config: &Config) -> Self {
+        let start_y = (config.window_height - config.paddle_size) / 2.0;
+        LineSegment (
+            Vector {
+                x: 0.0,
+                y: start_y,
+            },
+            Vector {
+                x: 0.0,
+                y: start_y + config.paddle_size,
+            }
+        )
+    }
     fn to_slope(&self) -> Slope {
         let x_multiplier = (self.1.y - self.0.y) /
             (self.1.x - self.0.x);
@@ -24,7 +38,7 @@ impl LineSegment {
     pub fn distance(&self) -> f64 {
         let difference = self.relative_delta();
         (difference.x * difference.x +
-            difference.y * difference.y).sqrt()
+         difference.y * difference.y).sqrt()
     }
 
     fn relative_delta(&self) -> Vector {
@@ -38,7 +52,7 @@ impl LineSegment {
 impl fmt::Display for LineSegment {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "({}, {}) <-> ({}, {})", self.0.x, self.0.y,
-        self.1.x, self.1.y)
+               self.1.x, self.1.y)
     }
 }
 

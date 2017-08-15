@@ -15,6 +15,7 @@ pub struct Input {
     pub quit: bool,
     pub paused_toggle: bool,
     pub restart_toggle: bool,
+    pub shape_toggle: bool,
 }
 
 impl Input {
@@ -26,6 +27,7 @@ impl Input {
             quit: false,
             paused_toggle: false,
             restart_toggle: false,
+            shape_toggle: false,
         }
     }
 
@@ -67,6 +69,7 @@ impl Input {
             114 => { self.restart_toggle = true; }, // r
             113 => { self.quit = true; }, //q
             112 => { self.paused_toggle = true; }, //p
+            49 => { self.shape_toggle = true; } // 1
 
             _ => { self.l_player = None; }
         }

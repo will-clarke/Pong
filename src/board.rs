@@ -1,4 +1,4 @@
-use geometry::line_segments::LineSegments;
+use geometry::line_segments::{LineSegments,LineSegmentRefs};
 use geometry::line_segment::LineSegment;
 use geometry::vector::Vector;
 use ball::Ball;
@@ -19,8 +19,8 @@ pub struct Board {
 impl Board {
     pub fn new(config: &Config) -> Board {
         let l_paddle = Paddle::new(config);
-        let mut line_segments =  LineSegments::new_top_and_bottom_guards();
-        line_segments.0.push(LineSegment(Vector::new(0,0), Vector::new(0,0)));
+        let line_segments =  LineSegments::new_top_and_bottom_guards();
+        // line_segments.0.push(l_paddle.line_segment);
 
         Board {
             ball: Ball::new(),
@@ -36,21 +36,19 @@ impl Board {
         }
         self.l_paddle.update(input);
 
-        // TODO: Do stuff here next... to update the paddle that's in the reflective_lines.
-        // self.l_paddle.update_position(&mut self.reflective_lines);
+        let paddle_segment = LineSegment(
+            Vector { x: 0.0, y: self.l_paddle.y },
+            Vector { x: 0.0, y: self.l_paddle.y + self.l_paddle.length }
+        );
 
-        // let paddle_segment = LineSegment(
-        //     Vector { x: 0.0, y: self.l_paddle.y },
-        //     Vector { x: 0.0, y: self.l_paddle.y + self.l_paddle.length }
-        // );
+        let mut line_references = LineSegmentRefs(vec!());
 
-        // TODO: fix nasty hack to pop last element, which happens to be previous paddle...
-        // {
-        //     let mut reflective_lines = &mut self.reflective_lines;
-        //     reflective_lines.0.pop();
-        //     reflective_lines.0.push(paddle_segment);
-        // }
-        self.ball = self.ball.update_position(&self.reflective_lines, input, score);
+        for line in self.reflective_lines.0.iter() {
+            line_references.0.push(&line);
+        };
+        line_references.0.push(&paddle_segment);
+
+        self.ball = self.ball.update_position_from_references(&line_references, input, score);
     }
 
     fn update_shape(&mut self) {

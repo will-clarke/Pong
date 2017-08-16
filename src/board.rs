@@ -30,28 +30,33 @@ impl Board {
         }
     }
 
-    pub fn update(&mut self, input: &mut Input, score: &mut Score) {
-        if input.shape_toggle {
-            self.update_shape();
-        }
+    pub fn update(&mut self, input: &mut Input, score: &mut Score, tick_count: i32) {
         self.l_paddle.update(input);
 
         let paddle_segment = LineSegment(
             Vector { x: 0.0, y: self.l_paddle.y },
             Vector { x: 0.0, y: self.l_paddle.y + self.l_paddle.length }
         );
-
+        let potential_shape: LineSegments;
         let mut line_references = LineSegmentRefs(vec!());
+
+        if input.shape_toggle {
+            potential_shape = self.update_shape(&mut line_references);
+            for line in potential_shape.0.iter() {
+                line_references.0.push(line);
+            }
+        }
 
         for line in self.reflective_lines.0.iter() {
             line_references.0.push(&line);
         };
+
         line_references.0.push(&paddle_segment);
 
         self.ball = self.ball.update_position_from_references(&line_references, input, score);
     }
 
-    fn update_shape(&mut self) {
+    fn update_shape(&mut self, line_references: &LineSegmentRefs) -> LineSegments {
         let vec_a = Vector { x: (*ui::MAX_X / 3) as f64, y: (*ui::MAX_Y / 3) as f64 };
         let vec_b = Vector { x: (*ui::MAX_X / 3) as f64 * 2.0, y: (*ui::MAX_Y / 3) as f64 };
         let vec_c = Vector { x: (*ui::MAX_X / 3) as f64, y: (*ui::MAX_Y / 3) as f64 * 2.0 };
@@ -59,7 +64,8 @@ impl Board {
         let a = LineSegment(vec_a, vec_b);
         let b = LineSegment(vec_b, vec_c);
         let c = LineSegment(vec_c, vec_a);
-        let triangle = LineSegments(vec!(a, b, c));
+        LineSegments(vec!(a, b, c))
+        // line_references.0.push(&a);
     }
 
 }

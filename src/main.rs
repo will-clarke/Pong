@@ -25,7 +25,9 @@ use game::Game;
 fn main() {
     println!("Hello, world!");
     let mut game = Game::new();
+    let mut i = 0;
     loop {
-        game.tick();
+        i += 1;
+        game.tick(i);
     }
 }

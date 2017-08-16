@@ -16,9 +16,9 @@ pub struct Game {
 }
 
 impl Game {
-    pub fn tick(&mut self) {
+    pub fn tick(&mut self, tick_count: i32) {
         self.input.update();
-        self.board.update(&mut self.input, &mut self.score);
+        self.board.update(&mut self.input, &mut self.score, tick_count);
 
         clear();
         self.score.draw();

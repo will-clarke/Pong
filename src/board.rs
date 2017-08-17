@@ -4,6 +4,7 @@ use geometry::vector::Vector;
 use ball::Ball;
 use paddle::Paddle;
 use config::Config;
+use state::State;
 use io::Input;
 use score::Score;
 use ui;
@@ -18,7 +19,7 @@ pub struct Board {
 
 impl Board {
     pub fn new(config: &Config) -> Board {
-        let l_paddle = Paddle::new(config);
+        let l_paddle = Paddle::new();
         let line_segments =  LineSegments::new_top_and_bottom_guards();
         // line_segments.0.push(l_paddle.line_segment);
 
@@ -30,30 +31,23 @@ impl Board {
         }
     }
 
-    pub fn update(&mut self, input: &mut Input, score: &mut Score, tick_count: i32) {
-        self.l_paddle.update(input);
+    pub fn update(&mut self, input: &mut Input, state: &mut State, score: &mut Score, tick_count: i32) {
 
-        let paddle_segment = LineSegment(
-            Vector { x: 0.0, y: self.l_paddle.y },
-            Vector { x: 0.0, y: self.l_paddle.y + self.l_paddle.length }
-        );
-        let potential_shape: LineSegments;
-        let mut line_references = LineSegmentRefs(vec!());
+        self.l_paddle.update(input);
+        let paddle_line_segment = self.l_paddle.line_segment();
+        state.paddle_line = paddle_line_segment;
+
+        let mut lines = state.intersection_lines.clone();
+        lines.0.push(state.paddle_line.clone());
 
         if input.shape_toggle {
-            potential_shape = self.update_shape();
-            for line in potential_shape.0.iter() {
-                line_references.0.push(line);
-            }
+            // potential_shape = self.update_shape();
+            // for line in potential_shape.0.iter() {
+            //     line_references.0.push(line);
+            // }
         }
 
-        for line in self.reflective_lines.0.iter() {
-            line_references.0.push(&line);
-        };
-
-        line_references.0.push(&paddle_segment);
-
-        self.ball = self.ball.update_position_from_references(&line_references, input, score);
+        self.ball = self.ball.update_position(&lines, input, score);
     }
 
     fn update_shape(&mut self) -> LineSegments {

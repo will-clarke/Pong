@@ -19,6 +19,7 @@ mod config;
 mod game;
 mod ui;
 mod io;
+mod state;
 
 use game::Game;
 

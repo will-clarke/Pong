@@ -4,7 +4,7 @@ use geometry::angle::Angle;
 use config::Config;
 use std::fmt;
 
-#[derive(Debug,PartialEq)]
+#[derive(Debug,PartialEq,Clone)]
 pub struct LineSegment(pub Vector, pub Vector);
 
 impl LineSegment {

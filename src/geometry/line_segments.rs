@@ -3,7 +3,9 @@ use geometry::vector::Vector;
 use geometry::line_segment::LineSegment;
 use ui;
 
+#[derive(Clone)]
 pub struct LineSegments(pub Vec<LineSegment>);
+
 pub struct LineSegmentRefs<'a>(pub Vec<&'a LineSegment>);
 
 

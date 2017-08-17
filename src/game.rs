@@ -1,5 +1,6 @@
 use config::Config;
 use board::Board;
+use state::State;
 use score::Score;
 use ui;
 use io::Input;
@@ -9,16 +10,16 @@ use ncurses::*;
 use std::{thread, time, process};
 
 pub struct Game {
-    // config: Config,
     board: Board,
     score: Score,
     input: Input,
+    state: State,
 }
 
 impl Game {
     pub fn tick(&mut self, tick_count: i32) {
         self.input.update();
-        self.board.update(&mut self.input, &mut self.score, tick_count);
+        self.board.update(&mut self.input, &mut self.state, &mut self.score, tick_count);
 
         clear();
         self.score.draw();
@@ -38,10 +39,10 @@ impl Game {
         ui::init_ui();
         let config = Config::new();
         Game {
-            // config: config,
             board: Board::new(&config),
             score: Score::new(),
             input: Input::new(),
+            state: State::new(),
         }
     }
 }

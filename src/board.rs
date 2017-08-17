@@ -41,7 +41,7 @@ impl Board {
         let mut line_references = LineSegmentRefs(vec!());
 
         if input.shape_toggle {
-            potential_shape = self.update_shape(&mut line_references);
+            potential_shape = self.update_shape();
             for line in potential_shape.0.iter() {
                 line_references.0.push(line);
             }
@@ -56,7 +56,7 @@ impl Board {
         self.ball = self.ball.update_position_from_references(&line_references, input, score);
     }
 
-    fn update_shape(&mut self, line_references: &LineSegmentRefs) -> LineSegments {
+    fn update_shape(&mut self) -> LineSegments {
         let vec_a = Vector { x: (*ui::MAX_X / 3) as f64, y: (*ui::MAX_Y / 3) as f64 };
         let vec_b = Vector { x: (*ui::MAX_X / 3) as f64 * 2.0, y: (*ui::MAX_Y / 3) as f64 };
         let vec_c = Vector { x: (*ui::MAX_X / 3) as f64, y: (*ui::MAX_Y / 3) as f64 * 2.0 };

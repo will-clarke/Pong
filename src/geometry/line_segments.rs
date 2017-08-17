@@ -1,5 +1,4 @@
 use std::mem;
-use config;
 use geometry::vector::Vector;
 use geometry::line_segment::LineSegment;
 use ui;

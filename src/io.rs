@@ -27,7 +27,7 @@ impl Input {
             quit: false,
             paused_toggle: false,
             restart_toggle: false,
-            shape_toggle: false,
+            shape_toggle: true,
         }
     }
 

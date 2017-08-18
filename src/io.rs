@@ -31,7 +31,7 @@ impl Input {
         }
     }
 
-    pub fn update(&mut self) {
+    pub fn update_input(&mut self) {
         // // loop to find out what key characters are
         // loop {
         //     let a = getch();

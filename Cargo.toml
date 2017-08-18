@@ -5,6 +5,11 @@ authors = ["William Clarke <wmmclarke@gmail.com>"]
 
 [dependencies]
 num = "0.1.40"
-ncurses = "5.86.0"
 lazy_static = "0.2.8"
+
+log = "0.3.8"
+env_logger = "0.4.3"
+
+ncurses = "5.86.0"
+
 rand = "0.3"

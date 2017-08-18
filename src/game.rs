@@ -9,17 +9,17 @@ use ncurses::*;
 
 use std::{thread, time, process};
 
-pub struct Game {
+pub struct Game<'a> {
     board: Board,
     score: Score,
     input: Input,
-    state: State,
+    state: State<'a>,
 }
 
-impl Game {
+impl<'a> Game<'a> {
     pub fn tick(&mut self, tick_count: i32) {
-        self.input.update();
-        self.board.update(&mut self.input, &mut self.state, &mut self.score, tick_count);
+        self.input.update_input();
+        self.board.update_game_state(&mut self.input, &mut self.state, &mut self.score, tick_count);
 
         clear();
         self.score.draw();
@@ -35,7 +35,7 @@ impl Game {
         thread::sleep(time::Duration::from_millis(1));
     }
 
-    pub fn new() -> Game {
+    pub fn new() -> Game<'a> {
         ui::init_ui();
         let config = Config::new();
         Game {
@@ -47,7 +47,7 @@ impl Game {
     }
 }
 
-impl Drop for Game {
+impl<'a> Drop for Game<'a> {
     fn drop(&mut self) {
         ui::end_ui();
     }

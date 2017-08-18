@@ -6,8 +6,19 @@ use ui;
 #[derive(Clone)]
 pub struct LineSegments(pub Vec<LineSegment>);
 
+#[derive(Clone,Debug)]
 pub struct LineSegmentRefs<'a>(pub Vec<&'a LineSegment>);
 
+
+impl<'a> LineSegmentRefs<'a> {
+    pub fn new() -> Self {
+        LineSegmentRefs(vec!())
+    }
+    pub fn from_segments(segments: &LineSegments) -> Self {
+       // implement
+        LineSegmentRefs::new()
+    }
+}
 
 impl LineSegments {
     pub fn new_top_and_bottom_guards() -> LineSegments {

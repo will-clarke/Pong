@@ -8,6 +8,9 @@ extern crate num;
 extern crate ncurses;
 extern crate rand;
 
+#[macro_use]
+extern crate log;
+extern crate env_logger;
 
 mod geometry;
 
@@ -22,13 +25,16 @@ mod io;
 mod state;
 
 use game::Game;
+// use log::LogLevel;
 
 fn main() {
-    println!("Hello, world!");
+    env_logger::init().unwrap();
+
     let mut game = Game::new();
     let mut i = 0;
     loop {
         i += 1;
         game.tick(i);
     }
+    println!("Thanks for playing!");
 }

@@ -18,14 +18,12 @@ mod ball;
 mod paddle;
 mod board;
 mod score;
-mod config;
 mod game;
 mod ui;
 mod io;
 mod state;
 
 use game::Game;
-// use log::LogLevel;
 
 fn main() {
     env_logger::init().unwrap();
@@ -36,5 +34,5 @@ fn main() {
         i += 1;
         game.tick(i);
     }
-    println!("Thanks for playing!");
+    // println!("Thanks for playing!");
 }

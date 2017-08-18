@@ -1,4 +1,3 @@
-use config::Config;
 use io::Input;
 use io::Direction;
 use geometry::line_segment::LineSegment;

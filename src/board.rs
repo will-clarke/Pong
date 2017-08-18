@@ -3,7 +3,6 @@ use geometry::line_segment::LineSegment;
 use geometry::vector::Vector;
 use ball::Ball;
 use paddle::Paddle;
-use config::Config;
 use state::State;
 use io::Input;
 use score::Score;
@@ -18,16 +17,15 @@ pub struct Board {
 }
 
 impl Board {
-    pub fn new(config: &Config) -> Board {
+
+    pub fn new() -> Board {
         let l_paddle = Paddle::new();
         let line_segments =  LineSegments::new_top_and_bottom_guards();
-        // line_segments.0.push(l_paddle.line_segment);
 
         Board {
             ball: Ball::new(),
             reflective_lines: line_segments,
             l_paddle: l_paddle,
-            // r_paddle: Paddle::new(config),
         }
     }
 

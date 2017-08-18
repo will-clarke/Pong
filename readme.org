@@ -15,7 +15,7 @@ Idea: use a second thread to detect input. That way, were don't have to worry ab
 - how generic do we want to make this?
 **** Toggle
 input: paused_toggle: bool
-config: paused: bool
+state: paused: bool
 
 only update config when input is released
 -> input paused == true && keyboard event: paused == false

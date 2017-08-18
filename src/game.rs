@@ -1,4 +1,3 @@
-use config::Config;
 use board::Board;
 use state::State;
 use score::Score;
@@ -37,9 +36,8 @@ impl<'a> Game<'a> {
 
     pub fn new() -> Game<'a> {
         ui::init_ui();
-        let config = Config::new();
         Game {
-            board: Board::new(&config),
+            board: Board::new(),
             score: Score::new(),
             input: Input::new(),
             state: State::new(),

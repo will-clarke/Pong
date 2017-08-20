@@ -1,7 +1,9 @@
 use board::Board;
-use geometry::line_segments::LineSegments;
+use geometry::line_segments::{LineSegments,LineSegmentRefs};
+use geometry::line_segment::LineSegment;
 use paddle::Paddle;
 use ball::Ball;
+use state::State;
 use score::Score;
 
 use ncurses::*;
@@ -61,12 +63,35 @@ pub trait Drawable {
     fn draw(&self);
 }
 
+impl<'a> Drawable for State<'a> {
+    fn draw(&self) {
+        self.intersection_lines.draw();
+    }
+}
+
 impl Drawable for Board {
     fn draw(&self) {
         self.reflective_lines.draw();
         // self.r_paddle.draw();
         self.l_paddle.draw();
         self.ball.draw();
+    }
+}
+
+impl<'a> Drawable for LineSegmentRefs<'a> {
+    fn draw(&self) {
+        for line_segment in &self.0 {
+            line_segment.draw();
+        }
+    }
+}
+
+impl Drawable for LineSegment {
+    fn draw(&self) {
+        let segments_in_line = LineSegments::points_on_a_line(self.0, self.1);
+        for vector in segments_in_line {
+            mvaddch(vector.y as i32, vector.x as i32, 'X' as u32);
+        }
     }
 }
 
@@ -102,8 +127,8 @@ impl Drawable for Ball {
 
 impl Drawable for Score {
     fn draw(&self) {
-            mvprintw( *MAX_Y - 4,
-                      *MAX_X - 13,
-                       &format!("SCORE: {}", self.l_score));
+        mvprintw( *MAX_Y - 4,
+                   *MAX_X - 13,
+                   &format!("SCORE: {}", self.l_score));
     }
 }

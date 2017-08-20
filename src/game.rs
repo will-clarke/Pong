@@ -22,6 +22,7 @@ impl<'a> Game<'a> {
 
         clear();
         self.score.draw();
+        self.state.draw(); // mmmmph... not great.. just to draw intersection lines
         self.board.draw();
         refresh();
 

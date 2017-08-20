@@ -1,6 +1,7 @@
 use geometry::line_segments::{LineSegments,LineSegmentRefs};
 use geometry::line_segment::LineSegment;
 use paddle::Paddle;
+use board::Board;
 use score::Score;
 
 // enum Keypress {
@@ -15,7 +16,7 @@ pub struct State<'a> {
     pub paddle_line: LineSegment,
     pub boundary_lines: LineSegments,
     pub score: Score,
-    pub shape: Option<LineSegments>,
+    pub shape: LineSegments,
     // paddle_size: f64,
 }
 
@@ -30,7 +31,7 @@ impl<'a> State<'a> {
             boundary_lines: boundary_lines,
             paddle_line: paddle_line,
             score: Score::new(),
-            shape: None,
+            shape: Board::starting_triangle(),
             // paddle_size: f64,
         }
 

@@ -5,7 +5,7 @@ use board::Board;
 use score::Score;
 use self::PotentialIntersectionLines::{BoundaryLines,LPaddleLine,ShapeLines};
 
-enum PotentialIntersectionLines {
+pub enum PotentialIntersectionLines {
     BoundaryLines,
     LPaddleLine,
     ShapeLines,
@@ -27,7 +27,7 @@ impl IntersectionLineTypes {
     }
 }
 
-pub struct State<'a> {
+pub struct State {
     pub intersection_line_types: IntersectionLineTypes,
     pub pause_toggle: bool,
     pub shape_toggle: bool,
@@ -35,42 +35,41 @@ pub struct State<'a> {
     pub boundary_lines: LineSegments,
     pub score: Score,
     pub shape: LineSegments,
-    pub testing: Option<&'a str>
     // paddle_size: f64,
 }
 
-impl<'a> State<'a> {
+impl State {
     pub fn new() -> Self {
         State {
-            intersection_lines: IntersectionLineTypes::without_shape(),
+            intersection_line_types: IntersectionLineTypes::without_shape(),
             pause_toggle: false,
             shape_toggle: false,
             boundary_lines:  LineSegments::new_top_and_bottom_guards(),
             paddle_line:  Paddle::new().line_segment(),
             score: Score::new(),
             shape: Board::starting_triangle(),
-            testing: None,
             // paddle_size: f64,
         }
 
     }
 
-    pub fn lines_which_intersect(&self) -> LineSegments {
+    pub fn board_line_segments(&self) -> LineSegments {
+        // todo fix clones here... ¯\_(ツ)_/¯
         let mut line_segments = LineSegments(vec!());
-        for line_type in self.intersection_lines.0 {
+        for line_type in &self.intersection_line_types.0 {
             match line_type {
-                BoundaryLines => {
-                    for line in self.boundary_lines.0 {
+                &BoundaryLines => {
+                    for line in self.boundary_lines.0.clone() {
                         line_segments.0.push(line);
                     }
                 },
-                ShapeLines => {
-                    for line in self.shape.0 {
+                &ShapeLines => {
+                    for line in self.shape.0.clone() {
                         line_segments.0.push(line);
                     }
                 },
-                LPaddleLine => {
-                    line_segments.0.push(self.paddle_line)},
+                &LPaddleLine => {
+                    line_segments.0.push(self.paddle_line.clone())},
             }
         };
         line_segments

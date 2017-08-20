@@ -34,9 +34,9 @@ impl Board {
 
         // todo: refactor these toggles!
         let intersection_line_types = if input.shape_toggle == true {
-            IntersectionLines::with_shape()
+            IntersectionLineTypes::with_shape()
         } else {
-            IntersectionLines::without_shape()
+            IntersectionLineTypes::without_shape()
         };
         state.intersection_line_types = intersection_line_types;
 
@@ -47,7 +47,7 @@ impl Board {
 
         // info!("LINES: count: {:?}, {:?}", &intersection_lines.0.len(), &intersection_lines);
 
-        self.ball = self.ball.update_position(&intersection_lines, input, score);
+        self.ball = self.ball.update_position(&state, input, score);
     }
 
     pub fn starting_triangle() -> LineSegments {

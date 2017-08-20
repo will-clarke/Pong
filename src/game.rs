@@ -9,15 +9,15 @@ use geometry::line_segments::LineSegmentRefs;
 
 use std::{thread, time, process};
 
-pub struct Game<'a> {
+pub struct Game {
     board: Board,
     score: Score,
     input: Input,
-    state: State<'a>,
+    state: State,
 }
 
-impl<'a> Game<'a> {
-    pub fn tick(&'a mut self, tick_count: i32) {
+impl Game {
+    pub fn tick(&mut self, tick_count: i32) {
         self.input.update_input();
 
         self.board.update_game_state(&mut self.input, &mut self.state, &mut self.score, tick_count).clone();
@@ -37,7 +37,7 @@ impl<'a> Game<'a> {
         thread::sleep(time::Duration::from_millis(1));
     }
 
-    pub fn new() -> Game<'a> {
+    pub fn new() -> Game {
         ui::init_ui();
         Game {
             board: Board::new(),
@@ -48,7 +48,7 @@ impl<'a> Game<'a> {
     }
 }
 
-impl<'a> Drop for Game<'a> {
+impl Drop for Game {
     fn drop(&mut self) {
         ui::end_ui();
     }

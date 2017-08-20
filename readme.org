@@ -11,6 +11,7 @@ Idea: use a second thread to detect input. That way, were don't have to worry ab
     - profit
 
 *** todo:
+- Add persistance for high scores
 - add random shapes in. eg. have swirling triangles in 'hard' mode
 - Add sdl or something.. make this properly graphical.
 - improve key-press cycle (include toggle)

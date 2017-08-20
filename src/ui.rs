@@ -65,6 +65,7 @@ pub trait Drawable {
 
 impl<'a> Drawable for State<'a> {
     fn draw(&self) {
+        info!("intersection_lines.count == {}", &self.intersection_lines.0.len());
         self.intersection_lines.draw();
     }
 }

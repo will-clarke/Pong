@@ -4,6 +4,7 @@ use geometry::line_segments::LineSegmentRefs;
 use geometry::line_segments::LineSegments;
 use geometry::line_segment::LineSegment;
 use geometry::line_segment_intersection;
+use state::IntersectionLineTypes;
 use score::Score;
 use io::Input;
 use ui;
@@ -98,8 +99,7 @@ impl Ball {
         }
     }
 
-
-    pub fn update_position_from_references(&self, line_segments: &LineSegmentRefs, input: &mut Input, score: &mut Score) -> Ball {
+    pub fn update_position_from_references(&self, line_segments: IntersectionLines, input: &mut Input, score: &mut Score) -> Ball {
 
         if input.restart_toggle == true {
             input.restart_toggle = false;

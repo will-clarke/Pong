@@ -3,7 +3,7 @@ use geometry::line_segment::LineSegment;
 use geometry::vector::Vector;
 use ball::Ball;
 use paddle::Paddle;
-use state::State;
+use state::{State,IntersectionLineTypes};
 use io::Input;
 use score::Score;
 use ui;
@@ -29,34 +29,25 @@ impl Board {
         }
     }
 
-    pub fn update_game_state(&mut self, input: &mut Input, state: &mut State, score: &mut Score, tick_count: i32) {
+    pub fn update_game_state<'a>(&'a mut self, input: &'a mut Input, state: &'a mut State, score: &'a mut Score, tick_count: i32) {
+
 
         // todo: refactor these toggles!
-        if input.shape_toggle == true {
-            state.shape_toggle = true;
-        }
+        let intersection_line_types = if input.shape_toggle == true {
+            IntersectionLines::with_shape()
+        } else {
+            IntersectionLines::without_shape()
+        };
+        state.intersection_line_types = intersection_line_types;
 
         self.l_paddle.update(input);
         let paddle_line_segment = self.l_paddle.line_segment();
         state.paddle_line = paddle_line_segment.clone();
 
-        let mut intersection_lines = LineSegmentRefs::new();
 
-        for line in &state.boundary_lines.0 {
-            intersection_lines.0.push(line);
-        }
+        // info!("LINES: count: {:?}, {:?}", &intersection_lines.0.len(), &intersection_lines);
 
-        if state.shape_toggle == true {
-            for line in &state.shape.0 {
-                intersection_lines.0.push(line);
-            }
-        }
-
-        intersection_lines.0.push(&paddle_line_segment);
-
-        info!("LINES: count: {:?}, {:?}", intersection_lines.0.len(), intersection_lines);
-
-        self.ball = self.ball.update_position_from_references(&intersection_lines, input, score);
+        self.ball = self.ball.update_position(&intersection_lines, input, score);
     }
 
     pub fn starting_triangle() -> LineSegments {

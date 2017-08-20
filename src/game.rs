@@ -5,6 +5,7 @@ use ui;
 use io::Input;
 use ui::Drawable;
 use ncurses::*;
+use geometry::line_segments::LineSegmentRefs;
 
 use std::{thread, time, process};
 
@@ -16,9 +17,10 @@ pub struct Game<'a> {
 }
 
 impl<'a> Game<'a> {
-    pub fn tick(&mut self, tick_count: i32) {
+    pub fn tick(&'a mut self, tick_count: i32) {
         self.input.update_input();
-        self.board.update_game_state(&mut self.input, &mut self.state, &mut self.score, tick_count);
+
+        self.board.update_game_state(&mut self.input, &mut self.state, &mut self.score, tick_count).clone();
 
         clear();
         self.score.draw();

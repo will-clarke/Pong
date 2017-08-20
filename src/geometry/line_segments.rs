@@ -2,46 +2,12 @@ use std::mem;
 use geometry::vector::Vector;
 use geometry::line_segment::LineSegment;
 use ui;
-use ui::Drawable;
 
 #[derive(Clone)]
 pub struct LineSegments(pub Vec<LineSegment>);
 
 #[derive(Clone,Debug)]
 pub struct LineSegmentRefs<'a>(pub  Vec<&'a LineSegment>);
-
-// pub struct LineSegmentRefs<'a> {
-//     inner: Vec<&'a LineSegment>,
-//     pos: usize,
-// }
-
-// impl<'a> Iterator for LineSegmentRefs<'a> {
-//     type Item = &'a LineSegment;
-//     fn next(&mut self) -> Option<&'a LineSegment> {
-//         if self.pos >= self.inner.0.len...
-//     }
-// }
-
-
-
-
-impl<'a> LineSegmentRefs<'a> {
-
-    pub fn new() -> Self {
-        LineSegmentRefs(vec!())
-    }
-
-    pub fn from_segments(segments: &LineSegments) -> Self {
-        // implement
-        LineSegmentRefs::new()
-    }
-
-    pub fn draw_linesegments(&self) {
-        for line_ref in &self.0 {
-           line_ref.draw();
-        }
-    }
-}
 
 impl LineSegments {
     pub fn new_top_and_bottom_guards() -> LineSegments {

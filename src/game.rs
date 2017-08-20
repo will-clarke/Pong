@@ -5,7 +5,6 @@ use ui;
 use io::Input;
 use ui::Drawable;
 use ncurses::*;
-use geometry::line_segments::LineSegmentRefs;
 
 use std::{thread, time, process};
 

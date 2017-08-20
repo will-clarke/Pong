@@ -1,18 +1,25 @@
 * Readme [[https://travis-ci.org/will-clarke/pong][https://travis-ci.org/will-clarke/pong.svg?branch=master]]
 
-Idea: use a second thread to detect input. That way, were don't have to worry about hacking nurses to be non blocking. 
+Idea: use a second thread to detect input. That way, were don't have to worry about hacking nurses to be non blocking.
 
-** Stuff to get this working:
+** To implement next
+- shape rotation:
+    - state.shape becomes a load of vectors
+    - we add an extra struct: Shape { relative_vecs: origin: }
+    - we add a matrix geometry struct & implement multiplications
+    - add rotation to the matrix's functions.
+    - profit
+
+*** todo:
 - add random shapes in. eg. have swirling triangles in 'hard' mode
 - Add sdl or something.. make this properly graphical.
 - improve key-press cycle (include toggle)
+- benchmark different intersection algorithms to find the most efficient
+- ? Rename line to line segment & generally rename words about lines / segments / chords / rays / points / slopes etc...
 
-*** TODO:
-- [ ] benchmark different intersection algorithms to find the most efficient
-- [ ] ? Rename line to line segment & generally rename words about lines / segments / chords / rays / points / slopes etc...
--
 *** Other things to think about
 - how generic do we want to make this?
+
 **** Toggle
 input: paused_toggle: bool
 state: paused: bool

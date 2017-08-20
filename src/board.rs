@@ -1,4 +1,4 @@
-use geometry::line_segments::{LineSegments,LineSegmentRefs};
+use geometry::line_segments::LineSegments;
 use geometry::line_segment::LineSegment;
 use geometry::vector::Vector;
 use ball::Ball;
@@ -31,9 +31,21 @@ impl Board {
 
     pub fn update_game_state<'a>(&'a mut self, input: &'a mut Input, state: &'a mut State, score: &'a mut Score, tick_count: i32) {
 
+        if &input.shape_toggle == &true && &state.shape_toggle == &true {
+            // TODO - implement next
+            // state.shape.rotate(tick_count);
+        }
 
         // todo: refactor these toggles!
-        let intersection_line_types = if input.shape_toggle == true {
+        if &input.shape_toggle == &true {
+            if &state.shape_toggle == &true {
+                state.shape_toggle = false;
+            } else {
+                state.shape_toggle = true;
+            }
+        }
+
+        let intersection_line_types = if state.shape_toggle == true {
             IntersectionLineTypes::with_shape()
         } else {
             IntersectionLineTypes::without_shape()

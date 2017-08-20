@@ -65,7 +65,6 @@ pub trait Drawable {
 
 impl Drawable for State {
     fn draw(&self) {
-        info!("intersection_lines.count == {}", &self.board_line_segments().0.len());
         self.board_line_segments().draw();
     }
 }

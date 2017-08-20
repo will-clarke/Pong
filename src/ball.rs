@@ -1,10 +1,7 @@
 use geometry::vector::Vector;
 use geometry::angle::Angle;
-use geometry::line_segments::LineSegmentRefs;
-use geometry::line_segments::LineSegments;
 use geometry::line_segment::LineSegment;
 use geometry::line_segment_intersection;
-use state::IntersectionLineTypes;
 use score::Score;
 use state::State;
 use io::Input;

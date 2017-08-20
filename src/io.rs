@@ -27,7 +27,7 @@ impl Input {
             quit: false,
             paused_toggle: false,
             restart_toggle: false,
-            shape_toggle: true,
+            shape_toggle: false,
         }
     }
 
@@ -52,6 +52,7 @@ impl Input {
                 }
             }
         }
+
         match ch
         {
             65 => { self.l_player = Some(Direction::Up); }, // UP KEY
@@ -71,8 +72,12 @@ impl Input {
             112 => { self.paused_toggle = true; }, //p
             49 => { self.shape_toggle = true; } // 1
 
-            _ => { self.l_player = None; }
+            _ => {
+                self.l_player = None;
+                self.shape_toggle = false;
+            }
         }
 
     }
+
 }

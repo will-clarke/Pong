@@ -1,4 +1,4 @@
-use geometry::line_segments::{LineSegments,LineSegmentRefs};
+use geometry::line_segments::LineSegments;
 use geometry::line_segment::LineSegment;
 use paddle::Paddle;
 use board::Board;
@@ -74,4 +74,5 @@ impl State {
         };
         line_segments
     }
+
 }

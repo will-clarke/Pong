@@ -21,7 +21,7 @@ impl Vector {
         }
     }
 
-    pub fn to_angle(&mut self) -> Angle {
+    pub fn angle(&mut self) -> Angle {
         // 0 is upright; .25 is right; .5 is down; .75 is left
         Angle((((f64::atan2(self.x, self.y) / TAU ) + 1.0) % 1.0).abs())
     }
@@ -80,13 +80,13 @@ fn test_multiplication() {
 
 
 #[test]
-fn test_to_angle() {
-    assert_eq!(Vector { x: 0.0, y: 1.0 }.to_angle(), Angle(0.0));
-    assert_eq!(Vector { x: 1.0, y: 0.0 }.to_angle(), Angle(0.25));
-    assert_eq!(Vector { x: 0.5, y: 0.5 }.to_angle(), Angle(0.125));
-    assert_eq!(Vector { x: 1.0, y: 1.0 }.to_angle(), Angle(0.125));
-    assert_eq!(Vector { x: 0.0, y: -1.0 }.to_angle(), Angle(0.5));
-    assert_eq!(Vector { x: -1.0, y: 0.0 }.to_angle(), Angle(0.75));
+fn test_angle() {
+    assert_eq!(Vector { x: 0.0, y: 1.0 }.angle(), Angle(0.0));
+    assert_eq!(Vector { x: 1.0, y: 0.0 }.angle(), Angle(0.25));
+    assert_eq!(Vector { x: 0.5, y: 0.5 }.angle(), Angle(0.125));
+    assert_eq!(Vector { x: 1.0, y: 1.0 }.angle(), Angle(0.125));
+    assert_eq!(Vector { x: 0.0, y: -1.0 }.angle(), Angle(0.5));
+    assert_eq!(Vector { x: -1.0, y: 0.0 }.angle(), Angle(0.75));
 }
 
 

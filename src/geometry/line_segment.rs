@@ -7,8 +7,8 @@ pub struct LineSegment(pub Vector, pub Vector);
 
 impl LineSegment {
 
-    pub fn to_angle(&self) -> Angle {
-        self.relative_delta().to_angle()
+    pub fn angle(&self) -> Angle {
+        self.relative_delta().angle()
     }
 
     pub fn distance(&self) -> f64 {

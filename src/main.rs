@@ -2,13 +2,19 @@
 // #![allow(unused_imports)]
 // #![allow(dead_code)]
 
+#![cfg_attr(feature="clippy", feature(plugin))]
+
+#![cfg_attr(feature="clippy", plugin(clippy))]
+
+
+
 #[macro_use]
 extern crate lazy_static;
 extern crate num;
 extern crate ncurses;
 extern crate rand;
 
-#[macro_use]
+// #[macro_use]
 extern crate log;
 extern crate env_logger;
 

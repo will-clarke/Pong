@@ -30,7 +30,7 @@ impl Ball {
 
     pub fn update_position(&self, state: &State, input: &mut Input, score: &mut Score) -> Ball {
 
-        if input.restart_toggle == true {
+        if input.restart_toggle {
             input.restart_toggle = false;
             score.l_score = 0;
             return Ball::new();
@@ -56,7 +56,7 @@ impl Ball {
         let line_which_intersects = line_segments_on_board.
             0.iter().
             filter(|&segment|
-                   line_segment_intersection::intersects(&segment, &line_to_new_pos).is_some()
+                   line_segment_intersection::intersects(segment, &line_to_new_pos).is_some()
             ).last();
 
         let next_position_and_direction = match line_which_intersects {

@@ -13,3 +13,9 @@ env_logger = "0.4.3"
 ncurses = "5.86.0"
 
 rand = "0.3"
+
+clippy = {version = "*", optional = true}
+
+# for clippy: (no idea what it does....)
+[features]
+default = []

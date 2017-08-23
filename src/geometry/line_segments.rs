@@ -64,7 +64,7 @@ impl LineSegments {
                                          Vector::new(x, y)
                                      };
 
-                                     error = error - dy;
+                                     error -= dy;
                                      if error < 0.0 {
                                          y += ystep;
                                          error += dx;

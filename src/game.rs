@@ -19,7 +19,7 @@ impl Game {
     pub fn tick(&mut self, tick_count: i32) {
         self.input.update_input();
 
-        self.board.update_game_state(&mut self.input, &mut self.state, &mut self.score, tick_count).clone();
+        self.board.update_game_state(&mut self.input, &mut self.state, &mut self.score, tick_count);
 
         clear();
         self.score.draw();
@@ -27,7 +27,7 @@ impl Game {
         self.board.draw();
         refresh();
 
-        if self.input.quit == true {
+        if self.input.quit {
             endwin();
             process::exit(0);
         }

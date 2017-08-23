@@ -45,7 +45,7 @@ impl Board {
             }
         }
 
-        let intersection_line_types = if state.shape_toggle == true {
+        let intersection_line_types = if state.shape_toggle {
             IntersectionLineTypes::with_shape()
         } else {
             IntersectionLineTypes::without_shape()

@@ -57,18 +57,18 @@ impl State {
         // todo fix clones here... ¯\_(ツ)_/¯
         let mut line_segments = LineSegments(vec!());
         for line_type in &self.intersection_line_types.0 {
-            match line_type {
-                &BoundaryLines => {
+            match *line_type {
+                BoundaryLines => {
                     for line in self.boundary_lines.0.clone() {
                         line_segments.0.push(line);
                     }
                 },
-                &ShapeLines => {
+                ShapeLines => {
                     for line in self.shape.0.clone() {
                         line_segments.0.push(line);
                     }
                 },
-                &LPaddleLine => {
+                LPaddleLine => {
                     line_segments.0.push(self.paddle_line.clone())},
             }
         };

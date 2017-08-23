@@ -11,15 +11,22 @@ Idea: use a second thread to detect input. That way, were don't have to worry ab
     - profit
 
 *** todo:
+    - separate thread for input
+    - GUI
+    - play l_paddle automatically
+    - ? random blocks you can shoot or something ?
+    - menu
+    - refactor - proper I/O
+    - make proper binary
+
+*** Other things to think about
 - Add persistance for high scores
 - fix travis ¯\_(ツ)_/¯
-- add random shapes in. eg. have swirling triangles in 'hard' mode
 - Add sdl or something.. make this properly graphical.
 - improve key-press cycle (include toggle)
 - benchmark different intersection algorithms to find the most efficient
 - ? Rename line to line segment & generally rename words about lines / segments / chords / rays / points / slopes etc...
 
-*** Other things to think about
 - how generic do we want to make this?
 
 **** Toggle

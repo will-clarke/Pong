@@ -14,7 +14,7 @@ extern crate num;
 extern crate ncurses;
 extern crate rand;
 
-// #[macro_use]
+#[macro_use]
 extern crate log;
 extern crate env_logger;
 

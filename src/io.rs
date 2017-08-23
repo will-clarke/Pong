@@ -55,18 +55,11 @@ impl Input {
 
         match ch
         {
-            65 | KEY_UP => { self.l_player = Some(Direction::Up); }, // UP KEY
-            66 | KEY_DOWN => { self.l_player = Some(Direction::Down); }, // DOWN KEY
-
             // TODO: WHY DOESNT THE DEFAULT KEY_LEFT ETC.. WORK ON MY MAC?
-            // KEY_DOWN => { self.l_player = Some(Direction::Down); },
-            KEY_LEFT => { self.paused_toggle = true; printw("OMG"); ; self.l_player = Some(Direction::Left); },
+            65 | 107 | KEY_UP => { self.l_player = Some(Direction::Up); }, // UP KEY , k
+            66 | 106 | KEY_DOWN => { self.l_player = Some(Direction::Down); }, // DOWN KEY, j
+            KEY_LEFT => { self.paused_toggle = true; ; self.l_player = Some(Direction::Left); },
             KEY_RIGHT => { self.l_player = Some(Direction::Right); },
-            // KEY_UP => { self.l_player = Some(Direction::Up); },
-
-            106 => { self.l_player = Some(Direction::Down); }, // j
-            107 => { self.l_player = Some(Direction::Up); }, // k
-
             114 => { self.restart_toggle = true; }, // r
             113 => { self.quit = true; }, //q
             112 => { self.paused_toggle = true; }, //p

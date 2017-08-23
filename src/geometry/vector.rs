@@ -26,9 +26,10 @@ impl Vector {
         Angle((((f64::atan2(self.x, self.y) / TAU ) + 1.0) % 1.0).abs())
     }
 
-    pub fn magnitude(&mut self) -> f64 {
-        f64::sqrt((self.x * self.x) + (self.y * self.y))
-    }
+    // pub fn magnitude(&mut self) -> f64 {
+    //     f64::sqrt((self.x * self.x) + (self.y * self.y))
+    // }
+
 }
 
 impl ops::Sub for Vector {
@@ -90,9 +91,9 @@ fn test_angle() {
 }
 
 
-#[test]
-fn test_magnitude() {
-    let magnitude = Vector { x: 2.0, y: 5.0 }.magnitude();
-    let expected = 5.385;
-    assert!( magnitude - expected < 0.01 );
-}
+// #[test]
+// fn test_magnitude() {
+//     let magnitude = Vector { x: 2.0, y: 5.0 }.magnitude();
+//     let expected = 5.385;
+//     assert!( magnitude - expected < 0.01 );
+// }

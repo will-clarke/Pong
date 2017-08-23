@@ -31,14 +31,14 @@ impl Board {
 
     pub fn update_game_state<'a>(&'a mut self, input: &'a mut Input, state: &'a mut State, score: &'a mut Score, tick_count: i32) {
 
-        if &input.shape_toggle == &true && &state.shape_toggle == &true {
+        if input.shape_toggle && state.shape_toggle {
             // TODO - implement next
             // state.shape.rotate(tick_count);
         }
 
         // todo: refactor these toggles!
-        if &input.shape_toggle == &true {
-            if &state.shape_toggle == &true {
+        if input.shape_toggle {
+            if state.shape_toggle {
                 state.shape_toggle = false;
             } else {
                 state.shape_toggle = true;
@@ -56,10 +56,8 @@ impl Board {
         let paddle_line_segment = self.l_paddle.line_segment();
         state.paddle_line = paddle_line_segment.clone();
 
-
-        // info!("LINES: count: {:?}, {:?}", &intersection_lines.0.len(), &intersection_lines);
-
-        self.ball = self.ball.update_position(&state, input, score);
+        self.ball = self.ball.update_position(state, input, score);
+        info!("<ball: [x: {}, y: {}]>", self.ball.current_position.x, self.ball.current_position.y);
     }
 
     pub fn starting_triangle() -> LineSegments {

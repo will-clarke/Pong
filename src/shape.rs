@@ -11,12 +11,21 @@ pub struct Shape {
 }
 
 impl Shape {
+
     pub fn rotate(&mut self, angle: i32) {
-        let rotation_speed = 100;
-        let angle = angle % rotation_speed;
+        let rotation_speed = 0.9999999;
+        let angle = angle as f64 % rotation_speed;
         let new_coords: Vec<Vector> = self.relative_coords.iter().map(|&vec| vec).collect();
         self.relative_coords = new_coords;
-        // TODO.. work on..
+
+        let new_coords =self.relative_coords.iter().
+            map(|vector|
+                Vector {
+                    x: vector.x * angle.cos() - vector.y * angle.sin(),
+                    y: vector.x * angle.sin() + vector.y * angle.cos()
+                }
+            ).collect();
+        self.relative_coords = new_coords;
     }
 
     pub fn absolute_coords(&self) -> Vec<Vector> {
@@ -50,17 +59,17 @@ impl Shape {
         let random_y = half_y / multiplier;
 
 
-      // meant to be something pointy like this :|
-      //
-      //                    X
-      //                   X X
-      //                  X   X
-      //                 X     X
-      //         XXXXXXX       XXXXXXXXXXXXXXX
-      // XXXXXXXX       X      XXXXXXXXXXXXXXX
-      //         XXXXXXX X    X
-      //                  X  X
-      //                   XX
+        // meant to be something pointy like this :|
+        //
+        //                    X
+        //                   X X
+        //                  X   X
+        //                 X     X
+        //         XXXXXXX       XXXXXXXXXXXXXXX
+        // XXXXXXXX       X      XXXXXXXXXXXXXXX
+        //         XXXXXXX X    X
+        //                  X  X
+        //                   XX
 
 
         Shape {

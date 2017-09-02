@@ -28,8 +28,7 @@ impl Board {
 
     pub fn update_game_state<'a>(&'a mut self, input: &'a mut Input, state: &'a mut State, score: &'a mut Score, tick_count: i32) {
 
-        if input.shape_toggle && state.shape_toggle {
-            // TODO - implement next
+        if state.shape_toggle {
             state.shape.rotate(tick_count);
         }
 

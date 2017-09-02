@@ -3,6 +3,7 @@ use geometry::line_segments::{LineSegments,LineSegmentRefs};
 use geometry::line_segment::LineSegment;
 use paddle::Paddle;
 use ball::Ball;
+use shape::Shape;
 use state::State;
 use score::Score;
 
@@ -104,6 +105,14 @@ impl Drawable for LineSegments {
         }
     }
 
+}
+
+impl Drawable for Shape {
+    fn draw(&self) {
+        for line in self.to_line_segments().0 {
+            line.draw();
+        }
+    }
 }
 
 impl Drawable for Paddle {

@@ -75,4 +75,36 @@ impl Shape {
 
 #[test]
 fn test_to_line_segments() {
+    let relative_coords = vec!(
+        Vector { x: 1.0, y: 1.0 },
+        Vector { x: -1.0, y: 1.0 },
+        Vector { x: -1.0, y: -1.0 },
+        Vector { x: 1.0, y: -1.0 },
+    );
+
+    let shape = Shape {
+        origin: Vector {x: 0.0, y: 0.0},
+        relative_coords: relative_coords.clone(),
+    };
+
+    assert_eq!(shape.to_line_segments(),
+               LineSegments(vec!(
+                   LineSegment(Vector { x: 1.0, y: -1.0 }, Vector { x: -1.0, y: -1.0 }),
+                   LineSegment(Vector { x: -1.0, y: -1.0 }, Vector { x: -1.0, y: 1.0 }),
+                   LineSegment(Vector { x: -1.0, y: 1.0 }, Vector { x: 1.0, y: 1.0 }),
+                   LineSegment(Vector { x: 1.0, y: -1.0 }, Vector { x: 1.0, y: 1.0 })
+               ))
+    );
+    let off_center_shape = Shape {
+        origin: Vector {x: 10.0, y: 10.0},
+        relative_coords: relative_coords,
+    };
+    assert_eq!(off_center_shape.to_line_segments(),
+               LineSegments(vec!(
+                   LineSegment(Vector { x: 11.0, y: 9.0 }, Vector { x: 9.0, y: 9.0 }),
+                   LineSegment(Vector { x: 9.0, y: 9.0 }, Vector { x: 9.0, y: 11.0 }),
+                   LineSegment(Vector { x: 9.0, y: 11.0 }, Vector { x: 11.0, y: 11.0 }),
+                   LineSegment(Vector { x: 11.0, y: 9.0 }, Vector { x: 11.0, y: 11.0 })
+               ))
+    );
 }

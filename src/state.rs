@@ -65,10 +65,9 @@ impl State {
                     }
                 },
                 ShapeLines => {
-                    // TODO IMPLEMENT HERE!!!
-                    // for line in self.shape.absolute_coords().clone() {
-                    //     line_segments.0.push(line);
-                    // }
+                    for line in self.shape.to_line_segments().0 {
+                        line_segments.0.push(line);
+                    }
                 },
                 LPaddleLine => {
                     line_segments.0.push(self.paddle_line.clone())},

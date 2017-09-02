@@ -3,7 +3,7 @@ use geometry::vector::Vector;
 use geometry::line_segment::LineSegment;
 use ui;
 
-#[derive(Clone)]
+#[derive(Clone,Debug,PartialEq)]
 pub struct LineSegments(pub Vec<LineSegment>);
 
 #[derive(Clone,Debug)]

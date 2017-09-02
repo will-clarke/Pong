@@ -39,6 +39,7 @@ impl Shape {
     }
 
     pub fn random_triangle() -> Self {
+        let pointiness = 5.0;
         let mut rng = rand::thread_rng();
         let multiplier: f64 = rng.gen_range(2.0, 4.0);
 
@@ -48,24 +49,35 @@ impl Shape {
         let random_x = half_x / multiplier;
         let random_y = half_y / multiplier;
 
+
+      // meant to be something pointy like this :|
+      //
+      //                    X
+      //                   X X
+      //                  X   X
+      //                 X     X
+      //         XXXXXXX       XXXXXXXXXXXXXXX
+      // XXXXXXXX       X      XXXXXXXXXXXXXXX
+      //         XXXXXXX X    X
+      //                  X  X
+      //                   XX
+
+
         Shape {
             relative_coords: vec!(
-                Vector { x: half_x - random_x,
-                         y: half_y - random_y },
-                Vector { x: half_x + random_x,
-                         y: half_y - random_y },
-                Vector { x: half_x,
-                         y: half_y + random_y},
+                Vector {x: random_x / pointiness, y: random_y / pointiness},
+                Vector {x: 0.0, y: random_y},
+                Vector {x: -random_x / pointiness, y: random_y / pointiness},
+                Vector {x: -random_x, y: 0.0},
+                Vector {x: -random_x / pointiness, y: -random_y / pointiness},
+                Vector {x: 0.0, y: -random_y},
+                Vector {x: random_x / pointiness, y: -random_y / pointiness},
+                Vector {x: random_x, y: 0.0},
             ),
             origin: Vector {
                 x: half_x,
                 y: half_y,
             }
-
-            // let vec_a = Vector { x: (*ui::MAX_X / multiplier) as f64, y: (*ui::MAX_Y / multiplier) as f64 };
-            // let vec_b = Vector { x: (*ui::MAX_X / multiplier) as f64 * 2.0, y: (*ui::MAX_Y / multiplier) as f64 };
-            // let vec_c = Vector { x: (*ui::MAX_X / multiplier) as f64, y: (*ui::MAX_Y / multiplier) as f64 * 2.0 };
-
 
         }
 

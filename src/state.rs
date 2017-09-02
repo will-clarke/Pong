@@ -1,5 +1,6 @@
 use geometry::line_segments::LineSegments;
 use geometry::line_segment::LineSegment;
+use shape::Shape;
 use paddle::Paddle;
 use board::Board;
 use score::Score;
@@ -34,7 +35,7 @@ pub struct State {
     pub paddle_line: LineSegment,
     pub boundary_lines: LineSegments,
     pub score: Score,
-    pub shape: LineSegments,
+    pub shape: Shape,
     // paddle_size: f64,
 }
 
@@ -47,7 +48,7 @@ impl State {
             boundary_lines:  LineSegments::new_top_and_bottom_guards(),
             paddle_line:  Paddle::new().line_segment(),
             score: Score::new(),
-            shape: Board::starting_triangle(),
+            shape: Shape::random_triangle(),
             // paddle_size: f64,
         }
 
@@ -64,9 +65,10 @@ impl State {
                     }
                 },
                 ShapeLines => {
-                    for line in self.shape.0.clone() {
-                        line_segments.0.push(line);
-                    }
+                    // TODO IMPLEMENT HERE!!!
+                    // for line in self.shape.absolute_coords().clone() {
+                    //     line_segments.0.push(line);
+                    // }
                 },
                 LPaddleLine => {
                     line_segments.0.push(self.paddle_line.clone())},

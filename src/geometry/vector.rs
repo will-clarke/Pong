@@ -1,9 +1,15 @@
 extern crate num;
 
+use rand;
+use rand::Rng;
+
+use geometry::line_segments::LineSegments;
+use geometry::line_segment::LineSegment;
 use std::ops;
 use geometry::angle::Angle;
 use std::fmt;
 use std;
+use ui;
 
 static TAU: f64 = 2.0 * std::f64::consts::PI;
 
@@ -89,11 +95,3 @@ fn test_angle() {
     assert_eq!(Vector { x: 0.0, y: -1.0 }.angle(), Angle(0.5));
     assert_eq!(Vector { x: -1.0, y: 0.0 }.angle(), Angle(0.75));
 }
-
-
-// #[test]
-// fn test_magnitude() {
-//     let magnitude = Vector { x: 2.0, y: 5.0 }.magnitude();
-//     let expected = 5.385;
-//     assert!( magnitude - expected < 0.01 );
-// }

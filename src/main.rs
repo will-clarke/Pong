@@ -28,6 +28,7 @@ mod game;
 mod ui;
 mod io;
 mod state;
+mod shape;
 
 use game::Game;
 

@@ -33,7 +33,7 @@ impl Board {
 
         if input.shape_toggle && state.shape_toggle {
             // TODO - implement next
-            // state.shape.rotate(tick_count);
+            state.shape.rotate(tick_count);
         }
 
         // todo: refactor these toggles!
@@ -58,16 +58,6 @@ impl Board {
 
         self.ball = self.ball.update_position(state, input, score);
         info!("<ball: [x: {}, y: {}]>", self.ball.current_position.x, self.ball.current_position.y);
-    }
-
-    pub fn starting_triangle() -> LineSegments {
-        let vec_a = Vector { x: (*ui::MAX_X / 3) as f64, y: (*ui::MAX_Y / 3) as f64 };
-        let vec_b = Vector { x: (*ui::MAX_X / 3) as f64 * 2.0, y: (*ui::MAX_Y / 3) as f64 };
-        let vec_c = Vector { x: (*ui::MAX_X / 3) as f64, y: (*ui::MAX_Y / 3) as f64 * 2.0 };
-        let a = LineSegment(vec_a, vec_b);
-        let b = LineSegment(vec_b, vec_c);
-        let c = LineSegment(vec_c, vec_a);
-        LineSegments(vec!(a, b, c))
     }
 
     // pub fn update_shape(&mut self) -> LineSegments {

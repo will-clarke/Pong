@@ -10,6 +10,15 @@ pub struct LineSegments(pub Vec<LineSegment>);
 pub struct LineSegmentRefs<'a>(pub  Vec<&'a LineSegment>);
 
 impl LineSegments {
+
+    pub fn push(&mut self, other: LineSegment) {
+        self.0.push(other);
+    }
+
+    pub fn empty() -> Self {
+        LineSegments(vec!())
+    }
+
     pub fn new_top_and_bottom_guards() -> LineSegments {
         let max_win_x = *ui::MAX_X as f64;
         let max_win_y = *ui::MAX_Y as f64;

@@ -1,12 +1,9 @@
 use geometry::line_segments::LineSegments;
-use geometry::line_segment::LineSegment;
-use geometry::vector::Vector;
 use ball::Ball;
 use paddle::Paddle;
 use state::{State,IntersectionLineTypes};
 use io::Input;
 use score::Score;
-use ui;
 
 // TODO: add r_paddle to board struct
 pub struct Board {

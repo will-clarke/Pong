@@ -1,15 +1,9 @@
 extern crate num;
 
-use rand;
-use rand::Rng;
-
-use geometry::line_segments::LineSegments;
-use geometry::line_segment::LineSegment;
 use std::ops;
 use geometry::angle::Angle;
 use std::fmt;
 use std;
-use ui;
 
 static TAU: f64 = 2.0 * std::f64::consts::PI;
 

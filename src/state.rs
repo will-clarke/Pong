@@ -2,7 +2,6 @@ use geometry::line_segments::LineSegments;
 use geometry::line_segment::LineSegment;
 use shape::Shape;
 use paddle::Paddle;
-use board::Board;
 use score::Score;
 use self::PotentialIntersectionLines::{BoundaryLines,LPaddleLine,ShapeLines};
 

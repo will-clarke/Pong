@@ -13,7 +13,9 @@ pub struct Shape {
 impl Shape {
 
     pub fn rotate(&mut self, angle: i32) {
-        let rotation_speed = 0.9999999;
+        let rotation_speed = 10.0;
+
+        let rotation_speed = rotation_speed / 1000.0;
         let angle = angle as f64 % rotation_speed;
         let new_coords: Vec<Vector> = self.relative_coords.iter().map(|&vec| vec).collect();
         self.relative_coords = new_coords;

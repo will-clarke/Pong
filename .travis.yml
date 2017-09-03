@@ -1,11 +1,11 @@
-before_install:
-  - sudo add-apt-repository --yes ppa:kubuntu-ppa/backports
-  - sudo apt-get update -qq
-  - sudo apt-get install cmake
-sudo: true
+sudo: false
 language: rust
-rust:
-  - stable
-script:
-    - cargo build --verbose
-    - cargo test --verbose
+branches:
+  only:
+  - master
+matrix:
+  fast_finish: false
+  include:
+  - rust: stable
+  - rust: beta
+  - rust: nightly

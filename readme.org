@@ -2,7 +2,7 @@
 
  [[./pong-screenshot.png]]
  
-Features:
+:tada: Features: :tada:
  - Hours of endless gameplay
  - Top notch ASCII graphics
  - Unbeatably intelligent AI (wall will always return the ball)

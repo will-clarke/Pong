@@ -1,9 +1,19 @@
-* Readme [[https://travis-ci.org/will-clarke/pong][https://travis-ci.org/will-clarke/pong.svg?branch=master]]
+* Pong [[https://travis-ci.org/will-clarke/pong][https://travis-ci.org/will-clarke/pong.svg?branch=master]]
 
+ [[./pong-screenshot.png]]
+ 
+Features:
+ - Hours of endless gameplay
+ - Top notch ASCII graphics
+ - Unbeatably intelligent AI (wall will always return the ball)
+ - Embedded in a real terminal
+
+** To install
+~cargo run~
+
+** Dev TODO list:
   Idea: use a second thread to detect input. That way, were don't have to worry about hacking nurses to be non blocking.
-
-** To implement next
-
+  
 *** Todo:
     - fix travis ¯\_(ツ)_/¯
     - separate thread for input

@@ -2,11 +2,11 @@
 
  [[./pong-screenshot.png]]
  
-:tada: Features: :tada:
+** Features:
  - Hours of endless gameplay
  - Top notch ASCII graphics
  - Unbeatably intelligent AI (wall will always return the ball)
- - Embedded in a real terminal
+ - All embedded in a real terminal!!1!
 
 ** To install
 ~cargo run~

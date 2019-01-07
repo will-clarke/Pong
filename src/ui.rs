@@ -1,11 +1,11 @@
-use board::Board;
-use geometry::line_segments::{LineSegments,LineSegmentRefs};
-use geometry::line_segment::LineSegment;
-use paddle::Paddle;
 use ball::Ball;
+use board::Board;
+use geometry::line_segment::LineSegment;
+use geometry::line_segments::{LineSegmentRefs, LineSegments};
+use paddle::Paddle;
+use score::Score;
 use shape::Shape;
 use state::State;
-use score::Score;
 
 use ncurses::*;
 
@@ -91,7 +91,7 @@ impl Drawable for LineSegment {
     fn draw(&self) {
         let segments_in_line = LineSegments::points_on_a_line(self.0, self.1);
         for vector in segments_in_line {
-            mvaddch(vector.y as i32, vector.x as i32, 'X' as u32);
+            mvaddch(vector.y as i32, vector.x as i32, ('X' as u32).into());
         }
     }
 }
@@ -99,12 +99,9 @@ impl Drawable for LineSegment {
 impl Drawable for LineSegments {
     fn draw(&self) {
         for vec in self.to_intermediate_vectors() {
-            mvaddch(vec.y as i32,
-                    vec.x as i32,
-                    'X' as u32);
+            mvaddch(vec.y as i32, vec.x as i32, ('X' as u32).into());
         }
     }
-
 }
 
 impl Drawable for Shape {
@@ -118,26 +115,23 @@ impl Drawable for Shape {
 impl Drawable for Paddle {
     fn draw(&self) {
         for i in 0..self.length as i32 {
-            mvaddch((self.y as i32) + i,
-                    0,
-                    'I' as u32);
-            // '█' as u32);
+            mvaddch((self.y as i32) + i, 0, ('I' as u32).into());
         }
     }
 }
 
 impl Drawable for Ball {
     fn draw(&self) {
-        mvaddch(self.current_position.y as i32,
-                self.current_position.x as i32,
-                'o' as u32);
+        mvaddch(
+            self.current_position.y as i32,
+            self.current_position.x as i32,
+            ('o' as u32).into(),
+        );
     }
 }
 
 impl Drawable for Score {
     fn draw(&self) {
-        mvprintw( *MAX_Y - 4,
-                   *MAX_X - 13,
-                   &format!("SCORE: {}", self.l_score));
+        mvprintw(*MAX_Y - 4, *MAX_X - 13, &format!("SCORE: {}", self.l_score));
     }
 }

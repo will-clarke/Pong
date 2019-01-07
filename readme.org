@@ -9,6 +9,7 @@
  - All embedded in a real terminal!!1!
 
 ** To install
+- Install rust and cargo (~curl -sSf https://static.rust-lang.org/rustup.sh | sh~)
 ~cargo run~
 
 ** Dev TODO list:
